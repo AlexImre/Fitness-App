@@ -1,3 +1,21 @@
-.App {
-  text-align: center;
+.AppTitle {
+  display: flex;
+  justify-content: center;
+}
+
+.AppAddEventTitle {
+  display: flex;
+  justify-content: center;
+}
+
+.DatePickerContainer {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+}
+
+.react-datepicker-popper { z-index: 100 !important }
+
+.rbc-day-bg {
+  height: 200px;
 }

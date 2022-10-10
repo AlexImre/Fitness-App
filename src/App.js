@@ -9,6 +9,9 @@ import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
+// FOR CHANGING EVENT COLOURS https://stackoverflow.com/questions/34587067/change-color-of-react-big-calendar-events
+// ACCORDION https://www.youtube.com/watch?v=fNKbo0bboyA&ab_channel=BrianDesign
+
 const locales = {
   "en-US": require('date-fns/locale/en-US')
 }
@@ -22,27 +25,7 @@ const localizer = dateFnsLocalizer({
 })
 
 const events = [
-  // {
-  //   title: 'big meeting',
-  //   allDay: false,
-  //   start: new Date(2022, 9, 13),
-  //   end: new Date(2022, 9, 15)
-  // },
-  // {
-  //   title: 'vacation',
-  //   start: new Date(2022, 10, 26),
-  //   end: new Date(2022, 10, 27)
-  // },
-  // {
-  //   title: 'conference',
-  //   start: new Date(2022, 9, 10),
-  //   end: new Date(2022, 9, 12)
-  // },
-  // {
-  //   title: 'run',
-  //   start: new Date(2022, 9, 26),
-  //   end: new Date(2022, 9, 27)
-  // }
+
 ]
 
 function App() {
@@ -52,10 +35,10 @@ function App() {
 
   const handleAddEvent = () => {
     setAllEvents([...allEvents, newEvent]);
-    getActivityLog('run');
   }
 
   // Activity log needs to be in state (for re-rendering), or could useEffect? and needs to be fired from submit button
+  // Monthly cells can only show 2 activities, can we change?
   
   const getActivityLog = (activity) => {
     let sum = 0;
@@ -70,8 +53,21 @@ function App() {
 
   return (
     <>
-    <div className="AppTitle">
-      <h1>Fitr</h1>
+    <div className='UltimateContainer'>
+
+    
+    <div className="AppTitleContainer">
+      <div className='AppTitleLeft'>
+        <i class="fa-solid fa-person-running"></i>
+        <h1>Fitr</h1>
+      </div>
+      <div className='AppTitleRight'>
+        <h3>Add Activity</h3>
+        <button className='button-18'>
+          +
+        </button>
+      </div>
+
     </div>
     <div className="AppAddEventTitle">
       <h2>Add Activity</h2>
@@ -106,13 +102,15 @@ function App() {
       </button>
       </div>
     
-    <div className='Calendarcontainer'>
+    <div className='CalendarContainer'>
       <Calendar 
         localizer={localizer}
         views={['month']}
         events={allEvents} 
         startAccessor="start" 
         endAccessor="end" 
+        showAllEvents={true}
+        allEvents
         style={{height: 500, margin: 50}} 
       />
     </div>
@@ -120,6 +118,7 @@ function App() {
     <div className="AppActivityLogContainer">
       <h2>Activity Log</h2>
       <p>{getActivityLog('run')}</p>
+    </div>
     </div>
     </>
   );

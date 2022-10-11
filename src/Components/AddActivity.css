@@ -1,0 +1,29 @@
+.AddActivityContainer {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(230, 235, 243);
+}
+
+.AddActivitySelectWrapper {
+  text-align: center;
+}
+
+.AddActivitySelect {
+  width: 177px;
+}
+
+.AddActivityButtons {
+  height: 25px;
+}
+
+.AddActivityAddButton {
+  margin: 0.5rem 0.25rem 0.5rem 0.25rem;
+  height: 25px;
+}
+
+.AddActivityCloseButton {
+  margin: 0.5rem 0.25rem 0.5rem 0.5rem;
+  height: 25px;
+}

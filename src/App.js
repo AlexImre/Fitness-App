@@ -5,8 +5,9 @@ import parse from "date-fns/parse";
 import startOfWeek from "date-fns/startOfWeek";
 import getDay from "date-fns/getDay";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { AddActivity } from './Components/AddActivity';
+import { ChartComponent } from './Components/Chart';
 
 // FOR CHANGING EVENT COLOURS https://stackoverflow.com/questions/34587067/change-color-of-react-big-calendar-events
 // ACCORDION https://www.youtube.com/watch?v=fNKbo0bboyA&ab_channel=BrianDesign
@@ -99,6 +100,7 @@ function App() {
         {activityLog.rowing > 0? <li>Rowing: {activityLog.rowing} minutes</li> : '' }
       </ul>
     </div>
+    <ChartComponent />
     </>
   );
 }

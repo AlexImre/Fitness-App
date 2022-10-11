@@ -5,7 +5,7 @@ import parse from "date-fns/parse";
 import startOfWeek from "date-fns/startOfWeek";
 import getDay from "date-fns/getDay";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { AddActivity } from './Components/AddActivity';
 
 // FOR CHANGING EVENT COLOURS https://stackoverflow.com/questions/34587067/change-color-of-react-big-calendar-events
@@ -23,16 +23,14 @@ const localizer = dateFnsLocalizer({
   locales
 })
 
-const events = [
-
-]
-
 function App() {
-
-  const [newEvent, setNewEvent] = useState({title: '', start: '', end: '', length: ''});
-  const [allEvents, setAllEvents] = useState(events);
+  // INITIALISE STATE
+  const [newEvent, setNewEvent] = useState({activity: '', start: '', end: '', length: 0});
+  const [allEvents, setAllEvents] = useState([]);
   const [showAddActivityMenu, setShowAddActivityMenu] = useState(false);
+  const [activityLog, setActivityLog] = useState({running: 0, cycling: 0, gym: 0, rowing: 0});
 
+  // FUNCTIONS
   const ToggleActivityMenu = () => {
     if(showAddActivityMenu) {
       setShowAddActivityMenu(false);
@@ -44,26 +42,17 @@ function App() {
 
   const handleAddEvent = () => {
     setAllEvents([...allEvents, newEvent]);
-  }
-
-  // Activity log needs to be in state (for re-rendering), or could useEffect? and needs to be fired from submit button
-  // Monthly cells can only show 2 activities, can we change?
-  
-  const getActivityLog = (activity) => {
-    let sum = 0;
-    console.log(allEvents);
-    for (let i = 0; i < allEvents.length; i++) {
-      if(allEvents[i].title = activity){
-        sum += Number(allEvents[i].length);
-      }
-      return sum;
-    }
+    // Can use start to log by month if needed
+    const start = newEvent.start;
+    const activity = newEvent.activity;
+    const length = Number(newEvent.length);
+    const newLengthEntry = activityLog[activity] += length;
+    setActivityLog({...activityLog, [activity]: newLengthEntry });
   }
 
   return (
     <>
-
-    
+    {/* TITLE SECTION */}
     <div className="AppTitleContainer">
       <div className='AppTitleLeft'>
         <i className="fa-solid fa-person-running"></i>
@@ -77,11 +66,12 @@ function App() {
       </div>
     </div>
 
-    <div className='AddActivityContainer'>
-      {/* show activity menu if true - add activity menu as new component? */}
+    {/* ADD ACTIVITY SECTION */}
+    <div className='AppAddActivityContainer'>
       {showAddActivityMenu ? <AddActivity newEvent={newEvent} setNewEvent={setNewEvent} handleAddEvent={handleAddEvent} ToggleActivityMenu={ToggleActivityMenu} /> : '' }
     </div>
-    
+
+    {/* CALENDAR SECTION */}
     <div className='CalendarContainer'>
       <Calendar 
         localizer={localizer}
@@ -89,6 +79,7 @@ function App() {
         events={allEvents} 
         startAccessor="start" 
         endAccessor="end" 
+        titleAccessor="activity"
         showAllEvents={true}
         allEvents
         enableAutoScroll={true}
@@ -96,9 +87,17 @@ function App() {
       />
     </div>
 
+    {/* ACTIVITY LOG SECTION */}
+    {/* CONVERT TO COMPONENT */}
     <div className="AppActivityLogContainer">
       <h2>Activity Log</h2>
-      <p></p>
+      Total time spent exercising, across logged activities:
+      <ul>
+        {activityLog.running > 0? <li>Running: {activityLog.running} minutes</li> : '' }
+        {activityLog.cycling > 0? <li>Cycling: {activityLog.cycling} minutes</li> : '' }
+        {activityLog.gym > 0? <li>Gym: {activityLog.gym} minutes</li> : '' }
+        {activityLog.rowing > 0? <li>Rowing: {activityLog.rowing} minutes</li> : '' }
+      </ul>
     </div>
     </>
   );

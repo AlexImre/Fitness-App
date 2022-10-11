@@ -7,23 +7,17 @@
 }
 
 .AddActivitySelectWrapper {
-  text-align: center;
+  text-align: left;
+}
+
+.AddActivityDateWrapper {
+  text-align: left;
+}
+
+.AddActivityLengthWrapper {
+  text-align: left;
 }
 
 .AddActivitySelect {
   width: 177px;
-}
-
-.AddActivityButtons {
-  height: 25px;
-}
-
-.AddActivityAddButton {
-  margin: 0.5rem 0.25rem 0.5rem 0.25rem;
-  height: 25px;
-}
-
-.AddActivityCloseButton {
-  margin: 0.5rem 0.25rem 0.5rem 0.5rem;
-  height: 25px;
 }

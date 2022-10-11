@@ -20,12 +20,14 @@ export const AddActivity = (props) => {
 
 
   return (
-    <div className='AddActivityContainer'>
+    <div className='AddActivityMasterContainer'>
+
   
+    <div className='AddActivityContainer'>
       <div className='AddActivitySelectWrapper'>
           Select Activity
           <div>
-          <select className='AddActivitySelect' id="Activities" name="Activities" onChange={(e) => setNewEvent({...newEvent, title: e.target.value})}>
+          <select className='AddActivitySelect' id="Activities" name="Activities" onChange={(e) => setNewEvent({...newEvent, activity: e.target.value})}>
             <option value='running'>Running</option>
             <option value='cycling'>Cycling</option>
             <option value='gym'>Gym</option>
@@ -47,8 +49,8 @@ export const AddActivity = (props) => {
       <div className='AddActivityLengthWrapper'>
           Length of Activity
           <div className='AddActivityLength'>
-            <input type="number" placeholder="Length of activity (mins)" value={newEvent.length}
-              onChange={(e) => setNewEvent({...newEvent, length: e.target.value})}
+            <input type="number" placeholder="Length of activity (mins)" value={Number(newEvent.length)}
+              onChange={(e) => setNewEvent({...newEvent, length: Number(e.target.value)})}
             />
           </div>
       </div>
@@ -61,8 +63,7 @@ export const AddActivity = (props) => {
           Close
         </button>
       </div>
-
-
+      </div>
       </div>
   )
 }

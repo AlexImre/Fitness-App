@@ -28,11 +28,12 @@ export const AddActivity = (props) => {
           Select Activity
           <div>
           <select className='AddActivitySelect' id="Activities" name="Activities" onChange={(e) => setNewEvent({...newEvent, activity: e.target.value})}>
-            <option value='' selected></option>
-            <option value='cycling'>Cycling</option>
-            <option value='gym'>Gym</option>
-            <option value='rowing'>Rowing</option>
-            <option value='other'>Other</option>
+            <option value=''></option>
+            <option value='Running'>Running</option>
+            <option value='Cycling'>Cycling</option>
+            <option value='Gym'>Gym</option>
+            <option value='Rowing'>Rowing</option>
+            <option value='Other'>Other</option>
           </select>
         </div>
       </div>

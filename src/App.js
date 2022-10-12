@@ -10,7 +10,6 @@ import { AddActivity } from './Components/AddActivity';
 import { ChartComponent } from './Components/Chart';
 
 // FOR CHANGING EVENT COLOURS https://stackoverflow.com/questions/34587067/change-color-of-react-big-calendar-events
-// ACCORDION https://www.youtube.com/watch?v=fNKbo0bboyA&ab_channel=BrianDesign
 
 const locales = {
   "en-US": require('date-fns/locale/en-US')
@@ -29,7 +28,7 @@ function App() {
   const [newEvent, setNewEvent] = useState({activity: '', start: '', end: '', length: 0});
   const [allEvents, setAllEvents] = useState([]);
   const [showAddActivityMenu, setShowAddActivityMenu] = useState(false);
-  const [activityLog, setActivityLog] = useState({running: 0, cycling: 0, gym: 0, rowing: 0});
+  const [activityLog, setActivityLog] = useState({Running: 0, Cycling: 0, Gym: 0, Rowing: 0});
 
   // FUNCTIONS
   const ToggleActivityMenu = () => {
@@ -57,19 +56,12 @@ function App() {
     }
   }
 
-  // Need to give events an ID
-  // Check if user wants to delete event
-  // Remove event from State
+  // DELETE ACTIVITY
   const handleEventSelection = (e) => {
-    console.log(e, "Event data");
-  
-
     const request = window.confirm("Would you like to remove this activity?")
-    console.log(`AllEvents: ${JSON.stringify(allEvents)}`);
-
     if (request) {
       const idx = allEvents.indexOf(e);
-      // I THINK SPLICING LIKE THIS MAY BE INCORRECT. DO I NEED TO USE setAllEvents to remove ID??
+      // I THINK SPLICING LIKE THIS MAY BE INCORRECT (but works??). DO I NEED TO USE setAllEvents to remove ID from state???
       allEvents.splice(idx, 1);
       setActivityLog({ ...activityLog, [e.activity]: activityLog[e.activity] - e.length });
     }
@@ -114,18 +106,23 @@ function App() {
     </div>
 
     {/* ACTIVITY LOG SECTION */}
-    {/* CONVERT TO COMPONENT */}
+    {/* NOTE TO CONVERT TO COMPONENT */}
+    {/* NOTE TO ADD DIFFERENT VIEWS FOR CHARTS E.G ACTIVITY TIME PER MONTH / ACTIVITY TIME PER ACTIVITY */}
     <div className="AppActivityLogContainer">
-      <h2>Activity Log</h2>
-      Total time spent exercising, across logged activities:
-      <ul>
-        {activityLog.running > 0? <li>Running: {activityLog.running} minutes</li> : '' }
-        {activityLog.cycling > 0? <li>Cycling: {activityLog.cycling} minutes</li> : '' }
-        {activityLog.gym > 0? <li>Gym: {activityLog.gym} minutes</li> : '' }
-        {activityLog.rowing > 0? <li>Rowing: {activityLog.rowing} minutes</li> : '' }
-      </ul>
+        <h2>Activity Log</h2>
+        {/* Total time spent exercising, across logged activities:
+        <ul>
+          {activityLog.Running > 0? <li>Running: {activityLog.Running} minutes</li> : '' }
+          {activityLog.Cycling > 0? <li>Cycling: {activityLog.Cycling} minutes</li> : '' }
+          {activityLog.Gym > 0? <li>Gym: {activityLog.Gym} minutes</li> : '' }
+          {activityLog.Rowing > 0? <li>Rowing: {activityLog.Rowing} minutes</li> : '' }
+        </ul> */}
+
+
     </div>
-    <ChartComponent activityLog={activityLog} />
+    <div className='AppChartContainer'>
+      <ChartComponent activityLog={activityLog} />
+    </div>
     </>
   );
 }

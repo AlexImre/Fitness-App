@@ -42,6 +42,8 @@ function App() {
   };
 
   const handleAddEvent = () => {
+    if(newEvent.activity){
+    
     setAllEvents([...allEvents, newEvent]);
     // Can use start to log by month if needed
     const start = newEvent.start;
@@ -49,6 +51,28 @@ function App() {
     const length = Number(newEvent.length);
     const newLengthEntry = activityLog[activity] += length;
     setActivityLog({...activityLog, [activity]: newLengthEntry });
+    }
+    else {
+      window.alert('Please select valid activity');
+    }
+  }
+
+  // Need to give events an ID
+  // Check if user wants to delete event
+  // Remove event from State
+  const handleEventSelection = (e) => {
+    console.log(e, "Event data");
+  
+
+    const request = window.confirm("Would you like to remove this activity?")
+    console.log(`AllEvents: ${JSON.stringify(allEvents)}`);
+
+    if (request) {
+      const idx = allEvents.indexOf(e);
+      // I THINK SPLICING LIKE THIS MAY BE INCORRECT. DO I NEED TO USE setAllEvents to remove ID??
+      allEvents.splice(idx, 1);
+      setActivityLog({ ...activityLog, [e.activity]: activityLog[e.activity] - e.length });
+    }
   }
 
   return (
@@ -85,6 +109,7 @@ function App() {
         allEvents
         enableAutoScroll={true}
         style={{height: 500, margin: 50}} 
+        onSelectEvent={handleEventSelection}
       />
     </div>
 
@@ -100,7 +125,7 @@ function App() {
         {activityLog.rowing > 0? <li>Rowing: {activityLog.rowing} minutes</li> : '' }
       </ul>
     </div>
-    <ChartComponent />
+    <ChartComponent activityLog={activityLog} />
     </>
   );
 }

@@ -7,9 +7,11 @@ import getDay from "date-fns/getDay";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import React, { useState } from "react";
 import { AddActivity } from './Components/AddActivity';
-import { ChartComponent } from './Components/Chart';
+import { ActivityTimeChart } from './Components/ActivityTimeChart';
+import { Header } from './Components/Header';
+import { TotalTimeChart } from './Components/MonthlyTimeChart';
 
-// FOR CHANGING EVENT COLOURS https://stackoverflow.com/questions/34587067/change-color-of-react-big-calendar-events
+// ADD GENERATE DUMMY DATA OPTION FOR SHOWING OFF PROJECT?
 
 const locales = {
   "en-US": require('date-fns/locale/en-US')
@@ -29,9 +31,26 @@ function App() {
   const [allEvents, setAllEvents] = useState([]);
   const [showAddActivityMenu, setShowAddActivityMenu] = useState(false);
   const [activityLog, setActivityLog] = useState({Running: 0, Cycling: 0, Gym: 0, Rowing: 0});
+  const [monthlyLog, setMonthlyLog] = useState({ 
+      0: { Running: 0, Cycling: 0, Gym: 0, Rowing: 0 },
+      1: { Running: 0, Cycling: 0, Gym: 0, Rowing: 0 },
+      2: { Running: 0, Cycling: 0, Gym: 0, Rowing: 0 },
+      3: { Running: 0, Cycling: 0, Gym: 0, Rowing: 0 },
+      4: { Running: 0, Cycling: 0, Gym: 0, Rowing: 0 },
+      5: { Running: 0, Cycling: 0, Gym: 0, Rowing: 0 },
+      6: { Running: 0, Cycling: 0, Gym: 0, Rowing: 0 },
+      7: { Running: 0, Cycling: 0, Gym: 0, Rowing: 0 },
+      8: { Running: 0, Cycling: 0, Gym: 0, Rowing: 0 },
+      9: { Running: 0, Cycling: 0, Gym: 0, Rowing: 0 },
+      10: { Running: 0, Cycling: 0, Gym: 0, Rowing: 0 },
+      11: { Running: 0, Cycling: 0, Gym: 0, Rowing: 0 }
+  }
+  )
+
+  console.log(`monthlyLog 9 is: ${monthlyLog[9]}`)
 
   // FUNCTIONS
-  const ToggleActivityMenu = () => {
+  const toggleActivityMenu = () => {
     if(showAddActivityMenu) {
       setShowAddActivityMenu(false);
       return;
@@ -45,11 +64,18 @@ function App() {
     
     setAllEvents([...allEvents, newEvent]);
     // Can use start to log by month if needed
-    const start = newEvent.start;
+    const activityMonth = newEvent.start.getMonth();
     const activity = newEvent.activity;
     const length = Number(newEvent.length);
     const newLengthEntry = activityLog[activity] += length;
+    // const newMonthLength = monthlyLog[activityMonth][activity] += length;
+    // const newMonthlyEntry = monthlyLog[activityMonth][activity] += length;
+    // const newMonthlyEntry = monthlyLog[activityMonth][activity]; += length;
     setActivityLog({...activityLog, [activity]: newLengthEntry });
+    // setMonthlyLog({...monthlyLog, [monthlyLog[activityMonth].activity]: newMonthlyEntry })
+    // THIS UPDATES THE ACTIVITY WITHIN THE SPECIFIC MONTH -- BRACKET NOTATION MUST BE USED WHEN ACCESSING OBJECT PROPERTIES USING VARIABLES
+    setMonthlyLog({...monthlyLog, [activityMonth]: {...monthlyLog[activityMonth], [activity]: monthlyLog[activityMonth][activity] + length } })
+    console.log(monthlyLog);
     }
     else {
       window.alert('Please select valid activity');
@@ -69,23 +95,12 @@ function App() {
 
   return (
     <>
-    {/* TITLE SECTION */}
-    <div className="AppTitleContainer">
-      <div className='AppTitleLeft'>
-        <i className="fa-solid fa-person-running"></i>
-        <h1>Fitr</h1>
-      </div>
-      <div className='AppTitleRight'>
-        <h3>Add Activity</h3>
-        <button className='button-18' onClick={ToggleActivityMenu}>
-          <i className="fa-solid fa-plus"></i>
-        </button>
-      </div>
-    </div>
+    {/* HEADER SECTION */}
+    <Header toggleActivityMenu={toggleActivityMenu} />
 
     {/* ADD ACTIVITY SECTION */}
     <div className='AppAddActivityContainer'>
-      {showAddActivityMenu ? <AddActivity newEvent={newEvent} setNewEvent={setNewEvent} handleAddEvent={handleAddEvent} ToggleActivityMenu={ToggleActivityMenu} /> : '' }
+      {showAddActivityMenu ? <AddActivity newEvent={newEvent} setNewEvent={setNewEvent} handleAddEvent={handleAddEvent} toggleActivityMenu={toggleActivityMenu} /> : '' }
     </div>
 
     {/* CALENDAR SECTION */}
@@ -109,7 +124,7 @@ function App() {
     {/* NOTE TO CONVERT TO COMPONENT */}
     {/* NOTE TO ADD DIFFERENT VIEWS FOR CHARTS E.G ACTIVITY TIME PER MONTH / ACTIVITY TIME PER ACTIVITY */}
     <div className="AppActivityLogContainer">
-        <h2>Activity Log</h2>
+        <span>Activity Log</span>
         {/* Total time spent exercising, across logged activities:
         <ul>
           {activityLog.Running > 0? <li>Running: {activityLog.Running} minutes</li> : '' }
@@ -121,7 +136,8 @@ function App() {
 
     </div>
     <div className='AppChartContainer'>
-      <ChartComponent activityLog={activityLog} />
+      <ActivityTimeChart activityLog={activityLog} />
+      <TotalTimeChart activityLog={activityLog} allEvents={allEvents} monthlyLog={monthlyLog}/>
     </div>
     </>
   );

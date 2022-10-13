@@ -1,0 +1,48 @@
+.HeaderTitleContainer {
+    display: flex;
+    justify-content: center;
+    background-color: #a7b8cf;
+    height: 90px;
+}
+  
+.fa-person-running {
+    font-size: 40px;
+    margin: 0 1rem 0 1rem;
+    color: #236db8;
+}
+
+.HeaderLogo {
+    cursor: pointer;
+    padding-bottom: 6px;
+}
+
+.HeaderTitleLeft {
+    display: flex;
+    align-items: center;
+}
+
+.HeaderTitleRight {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-left: auto;
+    margin-right: 1rem;
+}
+
+.HeaderLogoTitle {
+    font-size: 40px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.HeaderHomeTitle {
+    font-size: 24px;
+    padding: 0 1rem 0 2rem;
+    cursor: pointer;
+}
+
+.HeaderAnalyticsTitle {
+    font-size: 24px;
+    padding: 0 2rem 0 1rem;
+    cursor: pointer;
+}

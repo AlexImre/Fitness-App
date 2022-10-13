@@ -20,7 +20,7 @@ ChartJS.register(
 );
 
 
-export const ChartComponent = (props) => {
+export const ActivityTimeChart = (props) => {
     
     const activityLog = props.activityLog;
     const objectKeys = Object.keys(activityLog);
@@ -45,6 +45,9 @@ export const ChartComponent = (props) => {
             text: 'Total time spent performing each activity',
         },
         },
+        layout: {
+            padding: 30
+        }
     };
 
     const data = {
@@ -73,7 +76,5 @@ export const ChartComponent = (props) => {
         }
     }
 
-
-
-    return <Bar options={options} data={data} height={75} />;
+    return <Bar options={options} data={data} height={100} />;
 }

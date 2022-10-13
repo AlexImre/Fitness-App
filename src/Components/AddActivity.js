@@ -13,8 +13,8 @@ export const AddActivity = (props) => {
   const handleAddEvent = () => {
     props.handleAddEvent();
   }
-  const ToggleActivityMenu = () => {
-    props.ToggleActivityMenu();
+  const toggleActivityMenu = () => {
+    props.toggleActivityMenu();
   }
 
 
@@ -60,7 +60,7 @@ export const AddActivity = (props) => {
         <button className='AddActivityAddButton button-41' onClick={handleAddEvent}>
           Add
         </button>
-        <button className='AddActivityCloseButton button-41Close' onClick={ToggleActivityMenu}>
+        <button className='AddActivityCloseButton button-41Close' onClick={toggleActivityMenu}>
           Close
         </button>
       </div>

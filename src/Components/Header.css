@@ -1,14 +1,14 @@
 .HeaderTitleContainer {
     display: flex;
     justify-content: center;
-    background-color: #a7b8cf;
+    background-color: #000105;
     height: 90px;
 }
   
 .fa-person-running {
     font-size: 40px;
     margin: 0 1rem 0 1rem;
-    color: #236db8;
+    color: #0fc76b;
 }
 
 .HeaderLogo {
@@ -19,6 +19,7 @@
 .HeaderTitleLeft {
     display: flex;
     align-items: center;
+    color:aliceblue;
 }
 
 .HeaderTitleRight {

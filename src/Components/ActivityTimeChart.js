@@ -46,7 +46,7 @@ export const ActivityTimeChart = (props) => {
         },
         },
         layout: {
-            padding: 30
+            padding: 40
         }
     };
 
@@ -76,5 +76,5 @@ export const ActivityTimeChart = (props) => {
         }
     }
 
-    return <Bar options={options} data={data} height={100} />;
+    return <Bar options={options} data={data} />;
 }

@@ -29,6 +29,7 @@ function App() {
   // INITIALISE STATE
   const [newEvent, setNewEvent] = useState({activity: '', start: '', end: '', length: 0});
   const [allEvents, setAllEvents] = useState([]);
+  const [toggleChartView, setToggleChartView] = useState(false);
   const [showAddActivityMenu, setShowAddActivityMenu] = useState(false);
   const [activityLog, setActivityLog] = useState({Running: 0, Cycling: 0, Gym: 0, Rowing: 0});
   const [monthlyLog, setMonthlyLog] = useState({ 
@@ -44,8 +45,7 @@ function App() {
       9: { Running: 0, Cycling: 0, Gym: 0, Rowing: 0 },
       10: { Running: 0, Cycling: 0, Gym: 0, Rowing: 0 },
       11: { Running: 0, Cycling: 0, Gym: 0, Rowing: 0 }
-  }
-  )
+  });
 
   console.log(`monthlyLog 9 is: ${monthlyLog[9]}`)
 
@@ -59,6 +59,10 @@ function App() {
     }
   };
 
+  const toggleView = (boolean) => {
+      setToggleChartView(boolean);
+  };
+
   const handleAddEvent = () => {
     if(newEvent.activity){
     
@@ -68,13 +72,11 @@ function App() {
     const activity = newEvent.activity;
     const length = Number(newEvent.length);
     const newLengthEntry = activityLog[activity] += length;
-    // const newMonthLength = monthlyLog[activityMonth][activity] += length;
-    // const newMonthlyEntry = monthlyLog[activityMonth][activity] += length;
-    // const newMonthlyEntry = monthlyLog[activityMonth][activity]; += length;
+    const prevMonthActivityLength = monthlyLog[activityMonth][activity];
     setActivityLog({...activityLog, [activity]: newLengthEntry });
-    // setMonthlyLog({...monthlyLog, [monthlyLog[activityMonth].activity]: newMonthlyEntry })
     // THIS UPDATES THE ACTIVITY WITHIN THE SPECIFIC MONTH -- BRACKET NOTATION MUST BE USED WHEN ACCESSING OBJECT PROPERTIES USING VARIABLES
-    setMonthlyLog({...monthlyLog, [activityMonth]: {...monthlyLog[activityMonth], [activity]: monthlyLog[activityMonth][activity] + length } })
+    setMonthlyLog({...monthlyLog, [activityMonth]: {...monthlyLog[activityMonth], [activity]: prevMonthActivityLength + length }})
+    
     console.log(monthlyLog);
     }
     else {
@@ -90,6 +92,12 @@ function App() {
       // I THINK SPLICING LIKE THIS MAY BE INCORRECT (but works??). DO I NEED TO USE setAllEvents to remove ID from state???
       allEvents.splice(idx, 1);
       setActivityLog({ ...activityLog, [e.activity]: activityLog[e.activity] - e.length });
+      
+      const activityMonth = e.start.getMonth();
+      const activity = e.activity;
+      const prevMonthActivityLength = monthlyLog[activityMonth][activity];
+      setMonthlyLog({...monthlyLog, [activityMonth]: {...monthlyLog[activityMonth], [activity]: prevMonthActivityLength - e.length }})
+
     }
   }
 
@@ -115,7 +123,7 @@ function App() {
         showAllEvents={true}
         allEvents
         enableAutoScroll={true}
-        style={{height: 500, margin: 50}} 
+        style={{height: 600, margin: 50}} 
         onSelectEvent={handleEventSelection}
       />
     </div>
@@ -125,19 +133,14 @@ function App() {
     {/* NOTE TO ADD DIFFERENT VIEWS FOR CHARTS E.G ACTIVITY TIME PER MONTH / ACTIVITY TIME PER ACTIVITY */}
     <div className="AppActivityLogContainer">
         <span>Activity Log</span>
-        {/* Total time spent exercising, across logged activities:
-        <ul>
-          {activityLog.Running > 0? <li>Running: {activityLog.Running} minutes</li> : '' }
-          {activityLog.Cycling > 0? <li>Cycling: {activityLog.Cycling} minutes</li> : '' }
-          {activityLog.Gym > 0? <li>Gym: {activityLog.Gym} minutes</li> : '' }
-          {activityLog.Rowing > 0? <li>Rowing: {activityLog.Rowing} minutes</li> : '' }
-        </ul> */}
+        <br></br>
+        <button className='AppYearlyView' onClick={() => toggleView(true)}>Yearly</button>
+        <button className='AppMonthlyView' onClick={() => toggleView(false)}>Monthly</button>
 
 
     </div>
     <div className='AppChartContainer'>
-      <ActivityTimeChart activityLog={activityLog} />
-      <TotalTimeChart activityLog={activityLog} allEvents={allEvents} monthlyLog={monthlyLog}/>
+      {toggleChartView ? <ActivityTimeChart activityLog={activityLog}  /> : <TotalTimeChart activityLog={activityLog} allEvents={allEvents} monthlyLog={monthlyLog}/>}
     </div>
     </>
   );

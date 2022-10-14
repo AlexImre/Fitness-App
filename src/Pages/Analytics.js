@@ -28,15 +28,13 @@ export const Analytics = (props) => {
     return (
         <>
         <Header toggleActivityMenu={toggleActivityMenu} toggleAddActivityButton={false} />
-        
+
         <div className="AppActivityLogContainer">
-            <span>Activity Log</span>
-            <br></br>
-            <button className='AppYearlyView' onClick={() => toggleView(true)}>Yearly</button>
-            <button className='AppMonthlyView' onClick={() => toggleView(false)}>Monthly</button>
+            <button className='AppYearlyView button-6' onClick={() => toggleView(false)}>Yearly</button>
+            <button className='AppMonthlyView button-6' onClick={() => toggleView(true)}>Monthly</button>
         </div>
         <div className='AppChartContainer'>
-            {toggleChartView ? <ActivityTimeChart activityLog={activityLog}  /> : <TotalTimeChart activityLog={activityLog} allEvents={allEvents} monthlyLog={monthlyLog}/>}
+            {toggleChartView ? <TotalTimeChart activityLog={activityLog} allEvents={allEvents} monthlyLog={monthlyLog}/> : <ActivityTimeChart activityLog={activityLog}  /> }
         </div>
         </>
     )

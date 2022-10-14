@@ -1,14 +1,14 @@
 .HeaderTitleContainer {
     display: flex;
     justify-content: flex-start;
-    background-color: #000105;
+    background-color: #292f36;
     height: 90px;
 }
   
 .fa-person-running {
     font-size: 40px;
-    margin: 0 1rem 0 1rem;
-    color: #00bd68;
+    margin: 0 1.5rem 0 1.5rem;
+    color: #4ecdc4;
 }
 
 .HeaderLogo {
@@ -46,4 +46,17 @@
     font-size: 24px;
     padding: 0 2rem 0 1rem;
     cursor: pointer;
+}
+
+.Link {
+    text-decoration: none;
+    color:#fff;
+}
+
+.Link:hover {
+    color: #4ecdc4;
+}
+
+.fa-plus {
+    color: #292f36;
 }

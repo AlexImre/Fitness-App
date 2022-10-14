@@ -13,8 +13,8 @@ export const Header = (props) => {
                     <i className="fa-solid fa-person-running"></i>
                     <span className='HeaderLogoTitle'>Fitr</span>
                 </div>
-                <span className='HeaderHomeTitle'><Link to={'/'}>Home</Link></span>
-                <span className='HeaderAnalyticsTitle'><Link to={'/Analytics'}>Analytics</Link></span>
+                <span className='HeaderHomeTitle'><Link className="Link" to={'/'}>Home</Link></span>
+                <span className='HeaderAnalyticsTitle'><Link className="Link" to={'/Analytics'}>Analytics</Link></span>
             </div>
 
             { toggleAddActivityButton? <div className='HeaderTitleRight'>

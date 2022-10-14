@@ -71,7 +71,12 @@ export function Home(props) {
         </div>
 
         {/* CALENDAR SECTION */}
-        <CalendarComponent allEvents={allEvents} handleEventSelection={handleEventSelection} />
+        <CalendarComponent 
+            allEvents={allEvents}
+            events={newEvent}
+            handleEventSelection={handleEventSelection}
+            // eventPropGetter={} USE THIS TO CHANGE COLOURS OF EVENTS
+            />
         </>
     );
 }

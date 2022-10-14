@@ -7,20 +7,20 @@ function App() {
 
   const [newEvent, setNewEvent] = useState({activity: '', start: '', end: '', length: 0});
   const [allEvents, setAllEvents] = useState([]);
-  const [activityLog, setActivityLog] = useState({Running: 0, Cycling: 0, Gym: 0, Rowing: 0});
+  const [activityLog, setActivityLog] = useState({Run: 0, Cycle: 0, Gym: 0, Row: 0, Yoga: 0, Other: 0});
   const [monthlyLog, setMonthlyLog] = useState({ 
-      0: { Running: 0, Cycling: 0, Gym: 0, Rowing: 0 },
-      1: { Running: 0, Cycling: 0, Gym: 0, Rowing: 0 },
-      2: { Running: 0, Cycling: 0, Gym: 0, Rowing: 0 },
-      3: { Running: 0, Cycling: 0, Gym: 0, Rowing: 0 },
-      4: { Running: 0, Cycling: 0, Gym: 0, Rowing: 0 },
-      5: { Running: 0, Cycling: 0, Gym: 0, Rowing: 0 },
-      6: { Running: 0, Cycling: 0, Gym: 0, Rowing: 0 },
-      7: { Running: 0, Cycling: 0, Gym: 0, Rowing: 0 },
-      8: { Running: 0, Cycling: 0, Gym: 0, Rowing: 0 },
-      9: { Running: 0, Cycling: 0, Gym: 0, Rowing: 0 },
-      10: { Running: 0, Cycling: 0, Gym: 0, Rowing: 0 },
-      11: { Running: 0, Cycling: 0, Gym: 0, Rowing: 0 }
+      0: { Run: 0, Cycle: 0, Gym: 0, Row: 0, Yoga: 0, Other: 0 },
+      1: { Run: 0, Cycle: 0, Gym: 0, Row: 0, Yoga: 0, Other: 0 },
+      2: { Run: 0, Cycle: 0, Gym: 0, Row: 0, Yoga: 0, Other: 0 },
+      3: { Run: 0, Cycle: 0, Gym: 0, Row: 0, Yoga: 0, Other: 0 },
+      4: { Run: 0, Cycle: 0, Gym: 0, Row: 0, Yoga: 0, Other: 0 },
+      5: { Run: 0, Cycle: 0, Gym: 0, Row: 0, Yoga: 0, Other: 0 },
+      6: { Run: 0, Cycle: 0, Gym: 0, Row: 0, Yoga: 0, Other: 0 },
+      7: { Run: 0, Cycle: 0, Gym: 0, Row: 0, Yoga: 0, Other: 0 },
+      8: { Run: 0, Cycle: 0, Gym: 0, Row: 0, Yoga: 0, Other: 0 },
+      9: { Run: 0, Cycle: 0, Gym: 0, Row: 0, Yoga: 0, Other: 0 },
+      10: { Run: 0, Cycle: 0, Gym: 0, Row: 0, Yoga: 0, Other: 0 },
+      11: { Run: 0, Cycle: 0, Gym: 0, Row: 0, Yoga: 0, Other: 0 }
   });
 
   return (

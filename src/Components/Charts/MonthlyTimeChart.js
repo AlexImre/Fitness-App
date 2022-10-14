@@ -45,12 +45,16 @@ export function TotalTimeChart(props) {
       const monthlyCyclingDataArray = [];
       const monthlyRowingDataArray = [];
       const monthlyGymDataArray = [];
+      const monthlyYogaDataArray = [];
+      const monthlyOtherDataArray = [];
 
       for (let i = 0; i < labels.length; i++){
-        monthlyRunningDataArray.push(monthlyLog[i].Running);
-        monthlyCyclingDataArray.push(monthlyLog[i].Cycling);
-        monthlyRowingDataArray.push(monthlyLog[i].Rowing);
+        monthlyRunningDataArray.push(monthlyLog[i].Run);
+        monthlyCyclingDataArray.push(monthlyLog[i].Cycle);
+        monthlyRowingDataArray.push(monthlyLog[i].Row);
         monthlyGymDataArray.push(monthlyLog[i].Gym);
+        monthlyYogaDataArray.push(monthlyLog[i].Yoga);
+        monthlyOtherDataArray.push(monthlyLog[i].Other);
       }
       
       const data = {
@@ -59,22 +63,32 @@ export function TotalTimeChart(props) {
           {
             label: 'Running',
             data: monthlyRunningDataArray,
-            backgroundColor: 'rgba(100, 99, 132, 0.5)',
+            backgroundColor: '#ef476f',
           },
           {
             label: 'Cycling',
             data: monthlyCyclingDataArray,
-            backgroundColor: 'rgba(200, 99, 132, 0.5)',
+            backgroundColor: '#f78c6b',
           },
           {
             label: 'Rowing',
             data: monthlyRowingDataArray,
-            backgroundColor: 'rgba(50, 99, 132, 0.5)',
+            backgroundColor: '#ffd166',
           },
           {
             label: 'Gym',
             data: monthlyGymDataArray,
-            backgroundColor: 'rgba(01, 200, 132, 0.5)',
+            backgroundColor: '#06d6a0',
+          },
+          {
+            label: 'Yoga',
+            data: monthlyYogaDataArray,
+            backgroundColor: '#118ab2',
+          },
+          {
+            label: 'Other',
+            data: monthlyOtherDataArray,
+            backgroundColor: '#073b4c',
           },
         ]
       };

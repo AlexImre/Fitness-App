@@ -19,7 +19,6 @@ ChartJS.register(
   Legend
 );
 
-
 export function TotalTimeChart(props) {
     // GET DATA ONLY FOR YEAR === 2022??
     const monthlyLog = props.monthlyLog;

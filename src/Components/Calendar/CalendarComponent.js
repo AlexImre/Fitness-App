@@ -21,6 +21,29 @@ const localizer = dateFnsLocalizer({
 export const CalendarComponent = (props) => {
 
   const allEvents = props.allEvents;
+  const eventStyleGetter = (event) => {
+  let backgroundColor;
+  if (event.activity === 'Run') {
+    backgroundColor = '#ef476f'
+  } else if (event.activity === 'Gym') {
+    backgroundColor = '#06d6a0'
+  } else if (event.activity === 'Row') {
+    backgroundColor = '#ffd166'
+  } else if (event.activity === 'Cycle') {
+    backgroundColor = '#f78c6b'
+  } else if (event.activity === 'Yoga') {
+    backgroundColor = '#118ab2'
+  } else if (event.activity === 'Other') {
+    backgroundColor = '#073b4c'
+  }
+  var style = {
+      backgroundColor: backgroundColor,
+      color: 'black',
+  };
+  return {
+      style: style
+  };
+}
 
   return (
     <div className='CalendarContainer'>
@@ -36,7 +59,7 @@ export const CalendarComponent = (props) => {
       enableAutoScroll={true}
       style={{height: 600, margin: 50}} 
       onSelectEvent={props.handleEventSelection}
-    />
+      eventPropGetter={eventStyleGetter} />
   </div>
   )
 }

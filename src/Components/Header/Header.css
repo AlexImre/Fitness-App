@@ -3,6 +3,7 @@
     justify-content: flex-start;
     background-color: #292f36;
     height: 90px;
+    font-family: 'Roboto';
 }
   
 .fa-person-running {
@@ -39,7 +40,6 @@
 .HeaderHomeTitle {
     font-size: 24px;
     padding: 0 1rem 0 2rem;
-    cursor: pointer;
 }
 
 .HeaderAnalyticsTitle {
@@ -49,12 +49,11 @@
 }
 
 .Link {
-    text-decoration: none;
     color:#fff;
 }
 
 .Link:hover {
-    color: #4ecdc4;
+   color: #4ecdc4;
 }
 
 .fa-plus {

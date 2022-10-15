@@ -48,7 +48,15 @@ export const ActivityTimeChart = (props) => {
         },
         layout: {
             padding: 40
-        }
+        },
+        scales: {
+            x: {
+                title: {
+                    display: true,
+                    text: 'Time (mins)'
+                }
+            }
+        } 
     };
 
     // const data = {

@@ -1,10 +1,11 @@
 import React from 'react'
 import './Header.css';
-import { Link } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 
 export const Header = (props) => {
 
     const toggleAddActivityButton = props.toggleAddActivityButton;
+    const path = useLocation();
 
     return (
         <div className="HeaderTitleContainer">
@@ -13,8 +14,20 @@ export const Header = (props) => {
                     <i className="fa-solid fa-person-running"></i>
                     <span className='HeaderLogoTitle'>Fitr</span>
                 </div>
-                <span className='HeaderHomeTitle'><Link className="Link" to={'/'}>Home</Link></span>
-                <span className='HeaderAnalyticsTitle'><Link className="Link" to={'/Analytics'}>Analytics</Link></span>
+                <span className='HeaderHomeTitle'>
+                    <NavLink 
+                        className="Link" 
+                        to={'/'} 
+                        style={path.pathname === '/' ? {textDecoration: 'underline #4ecdc4'} : {textDecoration: 'none'}}>Home
+                    </NavLink>
+                </span>
+                <span className='HeaderAnalyticsTitle'>
+                    <NavLink 
+                        className="Link" 
+                        to={'/Analytics'} 
+                        style={path.pathname === '/Analytics' ? {textDecoration: 'underline #4ecdc4'} : {textDecoration: 'none'}}>Analytics
+                    </NavLink>
+                </span>
             </div>
 
             { toggleAddActivityButton? <div className='HeaderTitleRight'>

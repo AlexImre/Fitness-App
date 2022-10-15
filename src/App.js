@@ -33,14 +33,12 @@ function App() {
             activityLog={activityLog} setActivityLog={setActivityLog}
             monthlyLog={monthlyLog} setMonthlyLog={setMonthlyLog} />
         } />
-      </Routes>
-      <Routes>
-      <Route path="/Analytics" element={
-        <Analytics 
-          allEvents={allEvents}
-          activityLog={activityLog}
-          monthlyLog={monthlyLog} />
-      } />
+        <Route path="/Analytics" element={
+          <Analytics 
+            allEvents={allEvents}
+            activityLog={activityLog}
+            monthlyLog={monthlyLog} />
+        } />
       </Routes>
     </Router>
     );

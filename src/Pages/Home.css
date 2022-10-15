@@ -5,9 +5,12 @@
 
 .react-datepicker-popper { z-index: 100 !important }
 
-/* .rbc-event {
-  background-color: #4ecdc4 !important;
-} */
+.HomeContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+}
 
 /* CSS BUTTONS */
 .button-18 {
@@ -45,6 +48,16 @@
 .button-18:hover { 
   background-color: #38948e;
   color: #ffffff;
+}
+
+@media screen and (max-width: 640px) {
+  .button-18 {
+      margin-left: 0 !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      height: 40px;
+      width: 40px;
+  }
 }
 
 .button-41 {

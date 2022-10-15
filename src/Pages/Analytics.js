@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { Header } from '../Components/Header/Header';
 import { ActivityTimeChart } from '../Components/Charts/ActivityTimeChart';
 import { TotalTimeChart } from '../Components/Charts/MonthlyTimeChart';
+import { Footer } from '../Components/Footer/Footer';
+import './Analytics.css';
 
 export const Analytics = (props) => {
     // GET STATE DATA
@@ -27,14 +29,19 @@ export const Analytics = (props) => {
 
     return (
         <>
-        <Header toggleActivityMenu={toggleActivityMenu} toggleAddActivityButton={false} />
+        <div className='AnalyticsContainer'>
+            <div className='AnalyticsWrapper'>
+                <Header toggleActivityMenu={toggleActivityMenu} toggleAddActivityButton={false} />
 
-        <div className="AppActivityLogContainer">
-            <button className='AppYearlyView button-6' onClick={() => toggleView(false)}>Yearly</button>
-            <button className='AppMonthlyView button-6' onClick={() => toggleView(true)}>Monthly</button>
-        </div>
-        <div className='AppChartContainer'>
-            {toggleChartView ? <TotalTimeChart activityLog={activityLog} allEvents={allEvents} monthlyLog={monthlyLog}/> : <ActivityTimeChart activityLog={activityLog}  /> }
+                <div className="AppActivityLogContainer">
+                    <button className='AppYearlyView button-6' onClick={() => toggleView(false)}>Yearly</button>
+                    <button className='AppMonthlyView button-6' onClick={() => toggleView(true)}>Monthly</button>
+                </div>
+                <div className='AppChartContainer'>
+                    {toggleChartView ? <TotalTimeChart activityLog={activityLog} allEvents={allEvents} monthlyLog={monthlyLog}/> : <ActivityTimeChart activityLog={activityLog}  /> }
+                </div>
+            </div>
+            <Footer />
         </div>
         </>
     )

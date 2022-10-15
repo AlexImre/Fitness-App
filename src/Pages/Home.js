@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { AddActivity } from '../Components/AddActivity/AddActivity';
 import { Header } from '../Components/Header/Header';
 import { CalendarComponent } from '../Components/Calendar/CalendarComponent';
+import { Footer } from '../Components/Footer/Footer';
 
 // ADD GENERATE DUMMY DATA OPTION FOR SHOWING OFF PROJECT?
 
@@ -62,20 +63,27 @@ export function Home(props) {
 
     return (
         <>
-        {/* HEADER SECTION */}
-        <Header toggleActivityMenu={toggleActivityMenu} toggleAddActivityButton={true} />
+        <div className='HomeContainer'>
+            <div className='HomeWrapper'>
+                {/* HEADER SECTION */}
+                <Header toggleActivityMenu={toggleActivityMenu} toggleAddActivityButton={true} />
 
-        {/* ADDACTIVITY SECTION */}
-        <div className='AppAddActivityContainer'>
-            {showAddActivityMenu ? <AddActivity newEvent={newEvent} setNewEvent={setNewEvent} handleAddEvent={handleAddEvent} toggleActivityMenu={toggleActivityMenu} /> : '' }
+                {/* ADDACTIVITY SECTION */}
+                <div className='AppAddActivityContainer'>
+                    {showAddActivityMenu ? <AddActivity newEvent={newEvent} setNewEvent={setNewEvent} handleAddEvent={handleAddEvent} toggleActivityMenu={toggleActivityMenu} /> : '' }
+                </div>
+
+                {/* CALENDAR SECTION */}
+                <CalendarComponent 
+                    newEvent={newEvent}
+                    allEvents={allEvents}
+                    handleEventSelection={handleEventSelection} />
+            </div>
+
+            {/* FOOTER SECTION */}
+            <Footer />
         </div>
 
-        {/* CALENDAR SECTION */}
-        <CalendarComponent 
-            newEvent={newEvent}
-            allEvents={allEvents}
-            handleEventSelection={handleEventSelection}
-            />
         </>
     );
 }

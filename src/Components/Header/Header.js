@@ -31,7 +31,7 @@ export const Header = (props) => {
             </div>
 
             { toggleAddActivityButton? <div className='HeaderTitleRight'>
-                <span>Activity</span>
+                <span className='HeaderActivity'>Activity</span>
                 <button className='button-18' onClick={props.toggleActivityMenu}>
                     <i className="fa-solid fa-plus"></i>
                 </button>

@@ -6,6 +6,15 @@
     background-color: rgb(230, 235, 243);
 }
 
+.AddActivityWrapper {
+  border: solid 1px #255f5b;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 20px 20px;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  margin: 1rem;
+  background-color: aliceblue;
+  border-radius: 5px;
+}
+
 .AddActivitySelectWrapper {
   text-align: left;
 }
@@ -20,4 +29,9 @@
 
 .AddActivitySelect {
   width: 177px;
+}
+
+.AddActivityLabel {
+  font-weight: 500;
+  font-size: 14px;
 }

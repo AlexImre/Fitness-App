@@ -20,49 +20,49 @@ export const AddActivity = (props) => {
 
 
   return (
-    <div className='AddActivityMasterContainer'>
       <div className='AddActivityContainer'>
-        <div className='AddActivitySelectWrapper'>
-            Select Activity
-            <div>
-            <select className='AddActivitySelect' id="Activities" name="Activities" onChange={(e) => setNewEvent({...newEvent, activity: e.target.value})}>
-              <option value=''></option>
-              <option value='Cycle'>Cycle</option>
-              <option value='Gym'>Gym</option>
-              <option value='Row'>Row</option>
-              <option value='Run'>Run</option>
-              <option value='Yoga'>Yoga</option>
-              <option value='Other'>Other</option>
-            </select>
-          </div>
-        </div>
-
-        <div className='AddActivityDateWrapper'>
-            Select Date of Activity
-            <div className='AddActivityDatePicker'>
-              <DatePicker placeholderText="Date of activity" selected={newEvent.start} popperPlacement='bottom'
-                onChange={(start) => setNewEvent({...newEvent, start: start, end: start + 1})}
-              />
-          </div>
-        </div>
-
-        <div className='AddActivityLengthWrapper'>
-            Length of Activity
-            <div className='AddActivityLength'>
-              <input type="number" placeholder="Length of activity (mins)" value={Number(newEvent.length)}
-                onChange={(e) => setNewEvent({...newEvent, length: Number(e.target.value)})}
-              />
+        <div className='AddActivityWrapper'>
+          <div className='AddActivitySelectWrapper'>
+              <span className='AddActivityLabel'>Activity</span>
+              <div>
+              <select className='AddActivitySelect' id="Activities" name="Activities" onChange={(e) => setNewEvent({...newEvent, activity: e.target.value})}>
+                <option value=''></option>
+                <option value='Cycle'>Cycle</option>
+                <option value='Gym'>Gym</option>
+                <option value='Row'>Row</option>
+                <option value='Run'>Run</option>
+                <option value='Yoga'>Yoga</option>
+                <option value='Other'>Other</option>
+              </select>
             </div>
-        </div>
+          </div>
 
-        <div className='AddActivityButtons'>
-          <button className='AddActivityAddButton button-41' onClick={handleAddEvent}>
-            Add
-          </button>
-          <button className='AddActivityCloseButton button-41Close' onClick={toggleActivityMenu}>
-            Close
-          </button>
-        </div>
+          <div className='AddActivityDateWrapper'>
+              <span className='AddActivityLabel'>Date</span>
+              <div className='AddActivityDatePicker'>
+                <DatePicker placeholderText="Date of activity" selected={newEvent.start} popperPlacement='bottom'
+                  onChange={(start) => setNewEvent({...newEvent, start: start, end: start + 1})}
+                />
+            </div>
+          </div>
+
+          <div className='AddActivityLengthWrapper'>
+              <span className='AddActivityLabel'>Length (mins)</span>
+              <div className='AddActivityLength'>
+                <input type="number" placeholder="Length of activity (mins)" value={Number(newEvent.length)}
+                  onChange={(e) => setNewEvent({...newEvent, length: Number(e.target.value)})}
+                />
+              </div>
+          </div>
+
+          <div className='AddActivityButtons'>
+            <button className='AddActivityAddButton button-41' onClick={handleAddEvent}>
+              Add
+            </button>
+            <button className='AddActivityCloseButton button-41Close' onClick={toggleActivityMenu}>
+              Close
+            </button>
+          </div>
         </div>
       </div>
   )

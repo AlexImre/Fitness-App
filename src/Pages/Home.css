@@ -73,7 +73,7 @@
   user-select: none;
   -webkit-user-select: none;
   width: 75px;
-  margin: 0.5rem 0.25rem 0.5rem 0.5rem;
+  margin: 1rem 0.25rem 0.5rem 0.5rem;
   height: 25px;
   z-index: 9;
   border: 0;
@@ -105,7 +105,7 @@
   white-space: nowrap;
   height: 25px;
   width: 75px;
-  margin: 0.5rem 0.25rem 0.5rem 0.5rem;
+  margin: 1rem 0.25rem 0.5rem 0.5rem;
   z-index: 9;
   border: 0;
 }

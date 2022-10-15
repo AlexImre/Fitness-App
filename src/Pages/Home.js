@@ -6,8 +6,6 @@ import { Header } from '../Components/Header/Header';
 import { CalendarComponent } from '../Components/Calendar/CalendarComponent';
 import { Footer } from '../Components/Footer/Footer';
 
-// ADD GENERATE DUMMY DATA OPTION FOR SHOWING OFF PROJECT?
-
 export function Home(props) {
     // STATE VARIABLES
     const newEvent = props.newEvent;
@@ -31,7 +29,16 @@ export function Home(props) {
     };
 
     const handleAddEvent = () => {
-        if(newEvent.activity){
+        if (newEvent.length === 0 || newEvent.length > 500) {
+            window.alert('Please enter valid length of activity.');
+            return;
+        }
+
+        if(!newEvent.activity) {
+            window.alert('Please select valid activity.');
+            return;
+        }
+
         setAllEvents([...allEvents, newEvent]);
         const activityMonth = newEvent.start.getMonth();
         const activity = newEvent.activity;
@@ -40,10 +47,6 @@ export function Home(props) {
         const prevMonthActivityLength = monthlyLog[activityMonth][activity];
         setActivityLog({...activityLog, [activity]: newLengthEntry });
         setMonthlyLog({...monthlyLog, [activityMonth]: {...monthlyLog[activityMonth], [activity]: prevMonthActivityLength + length }})
-        }
-        else {
-        window.alert('Please select valid activity');
-        }
     }
 
     // DELETE ACTIVITY

@@ -21,10 +21,10 @@ export function Home(props) {
     const [showAddActivityMenu, setShowAddActivityMenu] = useState(false);
     const toggleActivityMenu = () => {
         if(showAddActivityMenu) {
-        setShowAddActivityMenu(false);
-        return;
+            setShowAddActivityMenu(false);
+            return;
         } else {
-        setShowAddActivityMenu(true);
+            setShowAddActivityMenu(true);
         }
     };
 
@@ -66,15 +66,16 @@ export function Home(props) {
 
     return (
         <>
-        <div className='HomeContainer'>
+        <div 
+            className='HomeContainer' 
+            id='blur'
+            style={showAddActivityMenu ? {
+                    filter: 'blur(5px)', 
+                    PointerEvents: 'none', 
+                    userSelect: 'none'} : {filter: 'none'}}>
             <div className='HomeWrapper'>
                 {/* HEADER SECTION */}
                 <Header toggleActivityMenu={toggleActivityMenu} toggleAddActivityButton={true} />
-
-                {/* ADDACTIVITY SECTION */}
-                <div className='AppAddActivityContainer'>
-                    {showAddActivityMenu ? <AddActivity newEvent={newEvent} setNewEvent={setNewEvent} handleAddEvent={handleAddEvent} toggleActivityMenu={toggleActivityMenu} /> : '' }
-                </div>
 
                 {/* CALENDAR SECTION */}
                 <CalendarComponent 
@@ -87,6 +88,10 @@ export function Home(props) {
             <Footer />
         </div>
 
+        {/* ADDACTIVITY SECTION */}
+        <div className='AppAddActivityContainer'>
+            {showAddActivityMenu ? <AddActivity newEvent={newEvent} setNewEvent={setNewEvent} handleAddEvent={handleAddEvent} toggleActivityMenu={toggleActivityMenu} /> : '' }
+        </div>
         </>
     );
 }

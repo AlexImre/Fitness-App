@@ -25,7 +25,6 @@ export const ActivityTimeChart = (props) => {
     const activityLog = props.activityLog;
     const objectKeys = Object.keys(activityLog);
     const objectValues = Object.values(activityLog);
-    console.log(objectValues);
     const labels = ['Activity'];
     
     const options = {
@@ -58,23 +57,6 @@ export const ActivityTimeChart = (props) => {
             }
         } 
     };
-
-    // const data = {
-    //     labels,
-    //     datasets: [
-    //       {
-    //         data: [],
-    //         borderColor: '#195591',
-    //         backgroundColor: '#85a8ca',
-    //       },
-    //       {
-    //         data: activityLog.Run,
-    //         borderColor: '#195591',
-    //         backgroundColor: '#85a8ca',
-    //       }
-    //     ]
-
-    // };
 
     const data = {
         labels,

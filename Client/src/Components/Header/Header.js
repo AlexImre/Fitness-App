@@ -17,7 +17,7 @@ export const Header = (props) => {
                 <span className='HeaderHomeTitle'>
                     <NavLink 
                         className="Link" 
-                        to={'/'} 
+                        to={'/Home'} 
                         style={path.pathname === '/' ? {textDecoration: 'underline #4ecdc4'} : {textDecoration: 'none'}}>Home
                     </NavLink>
                 </span>

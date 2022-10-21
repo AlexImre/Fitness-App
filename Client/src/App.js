@@ -28,8 +28,8 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={ <Register /> } />
-        <Route path="/Login" element={ <Login /> } />
+        <Route path="/" element={ <Login /> } />
+        <Route path="/Register" element={ <Register /> } />
         <Route path="/Home" element={
           <Home 
             newEvent={newEvent} setNewEvent={setNewEvent}

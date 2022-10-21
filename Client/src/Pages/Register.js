@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 
 export const Register = () => {
 
+    // https://jasonwatmore.com/post/2020/02/01/react-fetch-http-post-request-examples
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
     const registerAccount = async () => {
@@ -10,6 +11,7 @@ export const Register = () => {
         headers: { 'Content-Type': 'application/json'},
         body: { uname: username, pw: password }
     };
+    // does state need to be updated with passport?
     await fetch('/register', requestOptions);
     }
 

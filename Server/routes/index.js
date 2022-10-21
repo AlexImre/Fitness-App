@@ -9,9 +9,18 @@ const { isAuth, isAdmin } = require('./authMiddleware');
  * -------------- POST ROUTES ----------------
  */
 
- router.post('/login', passport.authenticate('local', { failureRedirect: '/login-failure', successRedirect: '/login-success' }));
+//  router.post('/login', 
+//     passport.authenticate('local', { failureRedirect: '/Analytics', failureMessage: true, successRedirect: '/Home' }), 
+//     (req, res, next) => {
+//         res.send(req.user);
+//  });
+
+router.post('/login', 
+    passport.authenticate('local', { failureMessage: true, successRedirect: '/Home' }));
 
  router.post('/register', (req, res, next) => {
+    // ADD CHECK TO SEE IF NAME ALREADY EXISTS!
+    console.log('You just hit the post /register end point.');
     console.log(req.body);
     const saltHash = genPassword(req.body.pw);
     const salt = saltHash.salt;
@@ -48,14 +57,18 @@ router.get('/login', (req, res, next) => {
     res.send(form);
 });
 
-router.get('/register', (req, res, next) => {
-    const form = '<h1>Register Page</h1><form method="post" action="register">\
-                    Enter Username:<br><input type="text" name="uname">\
-                    <br>Enter Password:<br><input type="password" name="pw">\
-                    <br><br><input type="submit" value="Submit"></form>';
-    res.send(form);
-});
+// router.get('/register', (req, res, next) => {
+//     const form = '<h1>Register Page</h1><form method="post" action="register">\
+//                     Enter Username:<br><input type="text" name="uname">\
+//                     <br>Enter Password:<br><input type="password" name="pw">\
+//                     <br><br><input type="submit" value="Submit"></form>';
+//     res.send(form);
+// });
 
+router.get('/Analytics', (req, res, next) => {
+    console.log('You made it to Analytics route');
+    // res.redirect('/Analytics');
+});
 
 router.get('/protected-route', isAuth, (req, res, next) => {
     res.send('You made it to the route.');

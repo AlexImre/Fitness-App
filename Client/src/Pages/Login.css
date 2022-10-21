@@ -79,6 +79,12 @@
     cursor: pointer;
 }
 
+.LoginFailureMessage {
+    color: red;
+    padding-bottom: 10px;
+    font-size: 11px;
+}
+
 /* CSS */
 .button-1 {
     background-color: #68cfc8;

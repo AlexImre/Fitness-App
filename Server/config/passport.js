@@ -11,14 +11,18 @@ const customFields = {
 
 // I THINK VERIFY CALLBACK NEEDS REQ as first argument to work with customfields https://stackoverflow.com/questions/36761291/how-can-i-store-other-form-fields-with-passport-local-js
 const verifyCallback = (username, password, done) => {
-
+    console.log('MAde it to callback!')
     User.findOne({ username: username })
-        .then((user) => {
-            if (!user) { return done(null, false) }
+    .then((user) => {
+            if (!user) { 
+                console.log('user not found!')
+                return done(null, false);
+            }
             const isValid = validPassword(password, user.hash, user.salt);
             if (isValid) {
                 return done(null, user);
             } else {
+                console.log('password invalid!')
                 return done(null, false);
             }
         })

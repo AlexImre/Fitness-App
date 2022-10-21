@@ -5,6 +5,7 @@ var passport = require('passport');
 var crypto = require('crypto');
 var routes = require('./routes');
 const connection = require('./config/database');
+const morgan = require('morgan');
 
 // Package documentation - https://www.npmjs.com/package/connect-mongo
 const MongoStore = require('connect-mongo');
@@ -20,6 +21,7 @@ require('./config/passport');
 require('dotenv').config();
 var app = express();
 app.use(express.json());
+app.use(morgan('tiny'));
 app.use(express.urlencoded({extended: true}));
 app.use(passport.initialize());
 app.use(passport.session());

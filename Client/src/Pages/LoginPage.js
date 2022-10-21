@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import './Login.css';
+import { Link } from 'react-router-dom';
 import { Footer } from '../Components/Footer/Footer';
+import { useNavigate } from 'react-router-dom';
 
-export const Register = () => {
-    const navigate = useNavigate();
-    // https://jasonwatmore.com/post/2020/02/01/react-fetch-http-post-request-examples
+export const LoginPage = () => {
+    // STATE VARIABLES
     const [username, setUsername] = useState();
     const handleUsername = (e) => {
         setUsername(e.target.value);
@@ -13,22 +14,36 @@ export const Register = () => {
     const handlePassword = (e) => {
         setPassword(e.target.value);
     }
+    const [showFailureMessage, setShowFailureMessage] = useState(false);
+    
+    // HANDLE LOGIN SUCCESS OR FAILURE
+    const navigate = useNavigate();
+    const handleLogin = (res) => {
+        console.log(res);
+        if (res.status === 401) {
+            setShowFailureMessage(true);
+            // window.alert('invalid pass or user');
+            return;
+        }
+        setShowFailureMessage(false);
+        navigate('/Home');
+    }
 
-    // ADD ERROR HANDLING TO .THEN(NAVIGATE) OTHERWISE IT WILL ALWAYS GO TO LOGIN
-    const registerAccount = async (e) => {
+    // CALL BACKEND API TO LOGIN
+    const login = async (e) => {
         e.preventDefault();
-        console.log('YOU HIT THE REGISTER BUTTON!!');
-        console.log(username);
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json'},
-            body: JSON.stringify({ uname: username, pw: password })
+            body: JSON.stringify({
+                uname: username,
+                pw: password
+            })
         };
-        console.log(requestOptions.body);
-        await fetch('/register', requestOptions).then(navigate('/Login'));
+        await fetch('/login', requestOptions)
+            .then((res) => handleLogin(res));
     }
 
-    // method="post" action="register"
     return (
         <div className='LoginMasterContainer'>
         <div className='LoginContainer'>
@@ -39,13 +54,14 @@ export const Register = () => {
                     </div>
                     <h1 className='LoginTitle'>Fitr</h1>
                     <div className='LoginAccess'>
-                        <span className='LoginPrompt'>Create new account</span>
+                        <span className='LoginPrompt'>Login to your account</span>
                         <span className='LoginUserNameText'>Username</span>
                         <input className='LoginInput' type="text" name="uname" onChange={handleUsername} />
                         <span className='LoginPasswordText'>Password</span>
                         <input className='LoginInput' type="password" name="pw" onChange={handlePassword} />
-                        <button className='button-1' type="submit" onClick={(e) => registerAccount(e)}>Create</button>
-                        <span className='LoginRegisterPrompt'>Already have an account? <Link to="/Login" className='LoginRegisterLink'><strong>Login</strong></Link></span>
+                        {showFailureMessage? <span className='LoginFailureMessage'>Invalid Username or Password</span> : ''}
+                        <button className='button-1' onClick={(e) => login(e)}>Login</button>
+                        <span className='LoginRegisterPrompt'>Not registered? <Link to="/Register" className='LoginRegisterLink'><strong>Create an account</strong></Link></span>
                     </div>
                 </div>
             </form>

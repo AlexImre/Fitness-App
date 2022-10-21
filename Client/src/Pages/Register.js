@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Footer } from '../Components/Footer/Footer';
 
 export const Register = () => {
     // https://jasonwatmore.com/post/2020/02/01/react-fetch-http-post-request-examples
@@ -16,6 +17,7 @@ export const Register = () => {
     }
 
     return (
+        <div className='LoginMasterContainer'>
         <div className='LoginContainer'>
             <form method="post" action="register">
                 <div className='LoginWrapper'>
@@ -34,6 +36,8 @@ export const Register = () => {
                     </div>
                 </div>
             </form>
+        </div>
+        <Footer />
         </div>
     )
 }

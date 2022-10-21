@@ -1,8 +1,14 @@
+.LoginMasterContainer {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: aliceblue;
+}
+
 .LoginContainer {
     display: flex;
     justify-content: center;
-    height: 100vh;
-    background-color: aliceblue;
     font-family: 'poppins';
 }
 

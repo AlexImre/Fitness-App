@@ -1,9 +1,11 @@
 import React from 'react';
 import './Login.css';
 import { Link } from 'react-router-dom';
+import { Footer } from '../Components/Footer/Footer';
 
 export const Login = () => {
     return (
+        <div className='LoginMasterContainer'>
         <div className='LoginContainer'>
             <form method="post" action="register">
                 <div className='LoginWrapper'>
@@ -22,6 +24,8 @@ export const Login = () => {
                     </div>
                 </div>
             </form>
+        </div>
+        <Footer />
         </div>
     )
 }

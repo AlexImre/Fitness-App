@@ -44,6 +44,18 @@
     padding: 0 1rem 0 1rem;
 }
 
+.HeaderLogoutTitle {
+    font-size: 24px;
+    color:#5e7e79;
+    padding: 0 1rem 0 1rem;
+}
+
+.HeaderLogoutTitle:hover {
+    text-decoration: underline;
+    color: #4ecdc4;
+    cursor: pointer;
+}
+
 .HeaderAnalyticsTitle {
     font-size: 24px;
     padding: 0 1rem 0 1rem;

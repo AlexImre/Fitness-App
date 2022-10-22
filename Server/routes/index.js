@@ -39,6 +39,19 @@ router.post('/login',
     res.redirect('/login');
  });
 
+router.post('/addEvent', async (req, res, next) => {
+    console.log('You made it to addevent API endpoint!');
+    console.log(req.body);
+    console.log(req.user);
+    const newEvent = req.body.newEvent;
+    const user = await User.findOne({ username: req.user.username });
+    console.log(user);
+    user.test = req.body.test;
+    user.allEvents.push(newEvent);
+    await user.save();
+    res.send(user);
+})
+
  /**
  * -------------- GET ROUTES ----------------
  */

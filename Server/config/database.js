@@ -24,7 +24,13 @@ const UserSchema = new mongoose.Schema({
     username: String,
     hash: String,
     salt: String,
-    admin: Boolean
+    test: String,
+    allEvents: [{
+        activity: String,
+        start: Date,
+        end: Date,
+        length: Number
+    }]
 });
 
 // const User = connection.model('User', UserSchema);

@@ -10,13 +10,33 @@ export const AddActivity = (props) => {
   const setNewEvent = (event) => {
     props.setNewEvent(event);
   }
-  const handleAddEvent = () => {
+  const handleAddEvent = (e) => {
+    addEvent(e);
     props.handleAddEvent();
     props.toggleActivityMenu();
   }
   const toggleActivityMenu = () => {
     props.toggleActivityMenu();
   }
+
+  const addEvent = async (e) => {
+    e.preventDefault();
+    console.log('Calling backend to addEvent!');
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            test: 'test',
+            newEvent: {
+              activity: newEvent.activity,
+              start: newEvent.start,
+              end: newEvent.end,
+              length: newEvent.length
+            }
+        })
+    };
+    await fetch('/addEvent', requestOptions);
+}
 
 
 
@@ -57,7 +77,7 @@ export const AddActivity = (props) => {
           </div>
 
           <div className='AddActivityButtons'>
-            <button className='AddActivityAddButton button-41' onClick={handleAddEvent}>
+            <button className='AddActivityAddButton button-41' onClick={(e) => handleAddEvent(e)}>
               Add
             </button>
             <button className='AddActivityCloseButton button-41Close' onClick={toggleActivityMenu}>

@@ -13,7 +13,7 @@ const customFields = {
 const verifyCallback = (username, password, done) => {
     console.log('MAde it to callback!')
     User.findOne({ username: username })
-    .then((user) => {
+        .then((user) => {
             if (!user) { 
                 console.log('user not found!')
                 return done(null, false);

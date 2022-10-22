@@ -20,6 +20,7 @@ const verifyCallback = (username, password, done) => {
             }
             const isValid = validPassword(password, user.hash, user.salt);
             if (isValid) {
+                console.log('user and password valid!')
                 return done(null, user);
             } else {
                 console.log('password invalid!')

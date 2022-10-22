@@ -1,9 +1,10 @@
-import React, { useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { Routes, Route } from 'react-router-dom';
 import { Home } from "./Pages/Home.js";
 import { Analytics } from "./Pages/Analytics.js";
 import { Register } from "./Pages/Register.js";
 import { LoginPage } from "./Pages/LoginPage.js";
+import { useNavigate } from "react-router-dom";
 
 function App() {
 
@@ -25,27 +26,56 @@ function App() {
       11: { Run: 0, Cycle: 0, Gym: 0, Row: 0, Yoga: 0, Other: 0 }
   });
 
+  const checkAuth = async () => {
+    console.log('You are checking auth!');
+    const requestOptions = {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' }
+    }
+    try {
+      await fetch('/auth', requestOptions)
+        .then((res) => handleAuth(res))
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
+  const handleAuth = (res) => {
+      console.log(res);
+      if (res.status === 401) {
+        console.log('RENAVIGATING TO LOGIN');
+        navigate('/Login')
+        return;
+      }
+      console.log(`isLoading is: ${isLoading}`);
+      setIsLoading(false);
+      console.log(`isLoading is: ${isLoading}`);
+  }
+
+  useEffect(() => {
+    checkAuth();
+  }, []);
+
   return (
-    <Router>
       <Routes>
         <Route path="/" element={ <LoginPage /> } />
-        <Route path="/Login" element={ <LoginPage /> } />
+        <Route path="/Login" element={ <LoginPage setIsLoading={setIsLoading} /> } />
         <Route path="/Register" element={ <Register /> } />
-        <Route path="/Home" element={
+        <Route path="/Home" element={ isLoading? '' :
           <Home 
             newEvent={newEvent} setNewEvent={setNewEvent}
             allEvents={allEvents} setAllEvents={setAllEvents}
             activityLog={activityLog} setActivityLog={setActivityLog}
-            monthlyLog={monthlyLog} setMonthlyLog={setMonthlyLog} />
-        } />
-        <Route path="/Analytics" element={
+            monthlyLog={monthlyLog} setMonthlyLog={setMonthlyLog} /> } />
+        <Route path="/Analytics" element={ isLoading? '' :
           <Analytics 
             allEvents={allEvents}
             activityLog={activityLog}
             monthlyLog={monthlyLog} />
         } />
       </Routes>
-    </Router>
     );
 };
 

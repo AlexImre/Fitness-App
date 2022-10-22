@@ -10,9 +10,7 @@ const morgan = require('morgan');
 // Package documentation - https://www.npmjs.com/package/connect-mongo
 const MongoStore = require('connect-mongo');
 
-// Need to require the entire Passport config module so app.js knows about it
 require('./config/passport');
-
 
 /**
  * -------------- GENERAL SETUP ----------------
@@ -30,12 +28,11 @@ app.use(passport.session());
  * -------------- SESSION SETUP ----------------
  */
 
-
 const sessionStore = MongoStore.create({ mongoUrl: process.env.DB_STRING });
 app.use(session({
     secret: process.env.SECRET,
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     store: sessionStore,
     cookie: {
         maxAge: 1000 * 60 * 60 * 24
@@ -63,7 +60,6 @@ app.use(passport.session());
 app.use(routes);
 
 // ADD ERROR HANDLING ROUTE
-
 
 /**
  * -------------- SERVER ----------------

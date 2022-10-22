@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Footer } from '../Components/Footer/Footer';
 import { useNavigate } from 'react-router-dom';
 
-export const LoginPage = () => {
+export const LoginPage = (props) => {
     // STATE VARIABLES
     const [username, setUsername] = useState();
     const handleUsername = (e) => {
@@ -15,6 +15,11 @@ export const LoginPage = () => {
         setPassword(e.target.value);
     }
     const [showFailureMessage, setShowFailureMessage] = useState(false);
+
+
+    const setIsLoading = () => {
+        props.setIsLoading(false);
+    }
     
     // HANDLE LOGIN SUCCESS OR FAILURE
     const navigate = useNavigate();
@@ -22,16 +27,19 @@ export const LoginPage = () => {
         console.log(res);
         if (res.status === 401) {
             setShowFailureMessage(true);
-            // window.alert('invalid pass or user');
+            return;
+        } else if (res.status !== 200) {
             return;
         }
         setShowFailureMessage(false);
+        setIsLoading();
         navigate('/Home');
     }
 
     // CALL BACKEND API TO LOGIN
     const login = async (e) => {
         e.preventDefault();
+        console.log('Calling backend to login!');
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json'},

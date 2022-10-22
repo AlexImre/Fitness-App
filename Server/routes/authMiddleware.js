@@ -1,7 +1,17 @@
 module.exports.isAuth = (req, res, next) => {
+    console.log('You have hit isAuth function!');
+    console.log(req.session);
+    if (!req.user) {
+        console.log('You are not authorised!');
+        res.status(401).json({ msg: 'You are not authorised to view this resource' });
+        return;
+    }
+
     if (req.isAuthenticated) {
+        console.log('You are authorised!');
         next();
     } else {
+        console.log('You are not authorised!');
         res.status(401).json({ msg: 'You are not authorised to view this resource' });
     }
 }

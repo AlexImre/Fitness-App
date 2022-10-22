@@ -1,12 +1,15 @@
 import './Home.css';
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { AddActivity } from '../Components/AddActivity/AddActivity';
 import { Header } from '../Components/Header/Header';
 import { CalendarComponent } from '../Components/Calendar/CalendarComponent';
 import { Footer } from '../Components/Footer/Footer';
+import { useLocation, useNavigate } from 'react-router';
 
 export function Home(props) {
+    // HOME SHOULD NOT SHOW IF NOT AUTHENTICATED! HOW TO DO THIS?
+
     // STATE VARIABLES
     const newEvent = props.newEvent;
     const setNewEvent = props.setNewEvent;

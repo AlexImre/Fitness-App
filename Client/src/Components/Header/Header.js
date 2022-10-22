@@ -7,13 +7,13 @@ export const Header = (props) => {
 
     const toggleAddActivityButton = props.toggleAddActivityButton;
     const path = useLocation();
-
     const navigate = useNavigate();
     const handleLogout = async () => {
         const requestOptions = {
             method: 'GET',
             headers: { 'Content-Type': 'application/json'},
         };
+        // CHECK IF AFTER LOGOUT YOU CAN JUST GO STRAIGHT BACK TO /HOME! 
         await fetch('/logout', requestOptions)
             .then(navigate('/Login'));
     }

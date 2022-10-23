@@ -24,7 +24,6 @@ const UserSchema = new mongoose.Schema({
     username: {type: String, unique: true, required: true},
     hash: String,
     salt: String,
-    test: String,
     allEvents: [{
         activity: String,
         start: Date,

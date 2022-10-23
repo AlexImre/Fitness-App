@@ -34,6 +34,8 @@ export const LoginPage = (props) => {
         setShowFailureMessage(false);
         setIsLoading();
         navigate('/Home');
+        // IS THERE A BETTER WAY TO LOAD DATA AFTER NAVIGATION?
+        window.location.reload();
     }
 
     // CALL BACKEND API TO LOGIN

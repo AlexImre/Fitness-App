@@ -5,10 +5,12 @@ import { useNavigate } from 'react-router-dom';
 
 export const Header = (props) => {
 
+    const setAllEvents = props.setAllEvents;
     const toggleAddActivityButton = props.toggleAddActivityButton;
     const path = useLocation();
     const navigate = useNavigate();
     const handleLogout = async () => {
+        setAllEvents([]);
         const requestOptions = {
             method: 'GET',
             headers: { 'Content-Type': 'application/json'},

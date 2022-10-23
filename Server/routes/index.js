@@ -71,6 +71,12 @@ router.get('/auth', isAuth, (req, res, next) => {
     // res.send();
 });
 
+router.get('/allEvents', isAuth, async (req, res, next) => {
+    console.log('You made it to get get allEvents route');
+    const user = await User.findOne({ username: req.user.username });
+    res.status(200).send(user);
+});
+
 // log user out
 router.get('/logout', (req, res, next) => {
     req.logOut();

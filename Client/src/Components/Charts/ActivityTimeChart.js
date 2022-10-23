@@ -22,10 +22,11 @@ ChartJS.register(
 
 export const ActivityTimeChart = (props) => {
     
-    const activityLog = props.activityLog;
-    const objectKeys = Object.keys(activityLog);
-    const objectValues = Object.values(activityLog);
+    const allEvents = props.allEvents;
     const labels = ['Activity'];
+
+    // This is 2022, use to display only data for 2022 
+    const currentYear = new Date(Date.now()).getFullYear();
     
     const options = {
         indexAxis: 'y',
@@ -63,67 +64,83 @@ export const ActivityTimeChart = (props) => {
         datasets: []
     };
 
-    for (let i = 0; i < objectValues.length; i++) {
-        if (objectValues[i] > 0) {
-            if (objectKeys[i] === 'Run') {
-                data.datasets.push({
-                    label: 'Running',
-                    data: [objectValues[i]],
-                    borderColor: '#ef476f',
-                    backgroundColor: '#ef476f',
-                })
-            } else if (objectKeys[i] === 'Cycle') {
-                data.datasets.push({
-                    label: 'Cycling',
-                    data: [objectValues[i]],
-                    borderColor: '#f78c6b',
-                    backgroundColor: '#f78c6b',
-                })
-            } else if (objectKeys[i] === 'Gym') {
-                data.datasets.push({
-                    label: 'Gym',
-                    data: [objectValues[i]],
-                    borderColor: '#06d6a0',
-                    backgroundColor: '#06d6a0',
-                })
-            } else if (objectKeys[i] === 'Row') {
-                data.datasets.push({
-                    label: 'Rowing',
-                    data: [objectValues[i]],
-                    borderColor: '#ffd166',
-                    backgroundColor: '#ffd166',
-                })
-            } else if (objectKeys[i] === 'Yoga') {
-                data.datasets.push({
-                    label: 'Yoga',
-                    data: [objectValues[i]],
-                    borderColor: '#118ab2',
-                    backgroundColor: '#118ab2',
-                })
-            } else if (objectKeys[i] === 'Other') {
-                data.datasets.push({
-                    label: 'Other',
-                    data: [objectValues[i]],
-                    borderColor: '#073b4c',
-                    backgroundColor: '#073b4c',
-                })
-            }
+    let totalRunningTime = 0;
+    let totalCyclingTime = 0;
+    let totalGymingTime = 0;
+    let totalRowingTime = 0;
+    let totalYogaTime = 0;
+    let totalOtherTime = 0;
+    // ADD YEAR CONDITION? e.g. convert Start to year with getFullYear
+    for (let i = 0; i < allEvents.length; i++) {
+        if (allEvents[i].activity === 'Run' && allEvents[i].length > 0) {
+            totalRunningTime += allEvents[i].length;
+        }
+        if (allEvents[i].activity === 'Cycle' && allEvents[i].length > 0) {
+            totalCyclingTime += allEvents[i].length;
+        }
+        if (allEvents[i].activity === 'Gym' && allEvents[i].length > 0) {
+            totalGymingTime += allEvents[i].length;
+        }
+        if (allEvents[i].activity === 'Row' && allEvents[i].length > 0) {
+            totalRowingTime += allEvents[i].length;
+        }
+        if (allEvents[i].activity === 'Yoga' && allEvents[i].length > 0) {
+            totalYogaTime += allEvents[i].length;
+        }
+        if (allEvents[i].activity === 'Other' && allEvents[i].length > 0) {
+            totalOtherTime += allEvents[i].length;
         }
     }
+
+        if (totalRunningTime > 0) {
+            data.datasets.push({
+                label: 'Running',
+                data: [totalRunningTime],
+                borderColor: '#ef476f',
+                backgroundColor: '#ef476f',
+            })
+        }
+        
+        if (totalCyclingTime > 0) {
+            data.datasets.push({
+                label: 'Cycling',
+                data: [totalCyclingTime],
+                borderColor: '#f78c6b',
+                backgroundColor: '#f78c6b',
+            })
+        }
+        if (totalGymingTime > 0) {
+            data.datasets.push({
+                label: 'Gym',
+                data: [totalGymingTime],
+                borderColor: '#06d6a0',
+                backgroundColor: '#06d6a0',
+            })
+        }
+        if (totalRowingTime > 0) {
+            data.datasets.push({
+                label: 'Rowing',
+                data: [totalRowingTime],
+                borderColor: '#ffd166',
+                backgroundColor: '#ffd166',
+            })
+        }
+        if (totalYogaTime > 0) {
+            data.datasets.push({
+                label: 'Yoga',
+                data: [totalYogaTime],
+                borderColor: '#118ab2',
+                backgroundColor: '#118ab2',
+            })
+        }
+        if (totalOtherTime > 0) {
+            data.datasets.push({
+                label: 'Other',
+                data: [totalOtherTime],
+                borderColor: '#073b4c',
+                backgroundColor: '#073b4c',
+            })
+        }
     
-    // ADD DYNAMIC LABELLING TO CHART
-    // for (let i = 0; i < objectKeys.length; i++){
-    //     if (objectValues[i] > 0){
-    //         labels.push(objectKeys[i]);
-    //     }
-    // }
-
-    // ADD DYNAMIC DATA TO CHART
-    // for (let i = 0; i < objectKeys.length; i++){
-    //     if (objectValues[i] > 0){
-    //         data.datasets[0].data.push(objectValues[i]);
-    //     }
-    // }
-
     return <Bar options={options} data={data} />;
 }

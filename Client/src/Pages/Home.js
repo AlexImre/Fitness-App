@@ -8,8 +8,6 @@ import { Footer } from '../Components/Footer/Footer';
 import { useLocation, useNavigate } from 'react-router';
 
 export function Home(props) {
-    // HOME SHOULD NOT SHOW IF NOT AUTHENTICATED! HOW TO DO THIS?
-
     // STATE VARIABLES
     const newEvent = props.newEvent;
     const setNewEvent = props.setNewEvent;
@@ -78,7 +76,7 @@ export function Home(props) {
                     userSelect: 'none'} : {filter: 'none'}}>
             <div className='HomeWrapper'>
                 {/* HEADER SECTION */}
-                <Header toggleActivityMenu={toggleActivityMenu} toggleAddActivityButton={true} />
+                <Header toggleActivityMenu={toggleActivityMenu} toggleAddActivityButton={true} setAllEvents={setAllEvents} />
 
                 {/* CALENDAR SECTION */}
                 <CalendarComponent 

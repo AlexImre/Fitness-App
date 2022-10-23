@@ -21,7 +21,7 @@ const connection = mongoose.createConnection(conn, {
 
 // Creates simple schema for a User. The hash and salt are derived from the user's given password when they register
 const UserSchema = new mongoose.Schema({
-    username: String,
+    username: {type: String, unique: true, required: true},
     hash: String,
     salt: String,
     test: String,

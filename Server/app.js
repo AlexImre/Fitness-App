@@ -61,6 +61,11 @@ app.use(routes);
 
 // ADD ERROR HANDLING ROUTE
 
+app.use((err, req, res, next) => {
+    console.log(err);
+    res.status(err.status || 500).send('Something went wrong!');
+})
+
 /**
  * -------------- SERVER ----------------
  */

@@ -4,7 +4,7 @@ import { Home } from "./Pages/Home.js";
 import { Analytics } from "./Pages/Analytics.js";
 import { Register } from "./Pages/Register.js";
 import { LoginPage } from "./Pages/LoginPage.js";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 function App() {
 
@@ -26,7 +26,11 @@ function App() {
       11: { Run: 0, Cycle: 0, Gym: 0, Row: 0, Yoga: 0, Other: 0 }
   });
 
+  // check auth before every page load, unless location is /login or /register
   const checkAuth = async () => {
+    if (location.pathname === '/register' || location.pathname === '/Register' || location.pathname === '/login' || location.pathname === '/Login'){
+      return;
+    }
     console.log('You are checking auth!');
     const requestOptions = {
         method: 'GET',
@@ -42,8 +46,8 @@ function App() {
 
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
+  const location = useLocation();
   const handleAuth = (res) => {
-      console.log(res);
       if (res.status === 401) {
         console.log('RENAVIGATING TO LOGIN');
         navigate('/Login')
@@ -57,6 +61,8 @@ function App() {
   useEffect(() => {
     checkAuth();
   }, []);
+
+  // IS LOADING CAN BE MOVED TO HOME AND ANALYTICS PAGE?
 
   return (
       <Routes>

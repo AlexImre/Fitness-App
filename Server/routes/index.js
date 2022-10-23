@@ -16,7 +16,7 @@ router.post('/login',
         res.send();
     });
 
- router.post('/register', (req, res, next) => {
+ router.post('/register', async (req, res, next) => {
     // ADD CHECK TO SEE IF NAME ALREADY EXISTS!
     console.log('You just hit the post /register end point.');
     console.log(req.body);
@@ -24,19 +24,29 @@ router.post('/login',
     const salt = saltHash.salt;
     const hash = saltHash.hash;
 
-    const newUser = new User({
-        username: req.body.uname,
-        hash: hash, 
-        salt: salt,
-        admin: true
-    });
-
-    newUser.save()
-        .then((user) => {
-            console.log(user);
+    try {
+        const newUser = new User({
+            username: req.body.uname,
+            hash: hash, 
+            salt: salt,
+            admin: true
         });
-
-    res.redirect('/login');
+    
+        await newUser.save()
+            .then((user) => {
+                console.log(user);
+            });
+        
+    } catch (err) {
+        console.log('MADE IT 3!');
+        if(err.code === 11000) {
+            const dupeError = new Error('Duplication Error!');
+            err.status = 409;
+        }
+        res.status(err.status || 500).send();
+        return;
+    }
+    res.status(201).send();
  });
 
 router.post('/addEvent', async (req, res, next) => {

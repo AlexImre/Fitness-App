@@ -21,8 +21,7 @@ ChartJS.register(
 
 export function TotalTimeChart(props) {
     // GET DATA ONLY FOR YEAR === 2022??
-    const monthlyLog = props.monthlyLog;
-
+    const allEvents = props.allEvents;
     const options = {
         responsive: true,
         plugins: {
@@ -40,21 +39,39 @@ export function TotalTimeChart(props) {
       };
       
       const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+      const monthlyRunningDataArray = [0,0,0,0,0,0,0,0,0,0,0,0];
+      const monthlyCyclingDataArray = [0,0,0,0,0,0,0,0,0,0,0,0];
+      const monthlyRowingDataArray = [0,0,0,0,0,0,0,0,0,0,0,0];
+      const monthlyGymDataArray = [0,0,0,0,0,0,0,0,0,0,0,0];
+      const monthlyYogaDataArray = [0,0,0,0,0,0,0,0,0,0,0,0];
+      const monthlyOtherDataArray = [0,0,0,0,0,0,0,0,0,0,0,0];
 
-      const monthlyRunningDataArray = [];
-      const monthlyCyclingDataArray = [];
-      const monthlyRowingDataArray = [];
-      const monthlyGymDataArray = [];
-      const monthlyYogaDataArray = [];
-      const monthlyOtherDataArray = [];
-
-      for (let i = 0; i < labels.length; i++){
-        monthlyRunningDataArray.push(monthlyLog[i].Run);
-        monthlyCyclingDataArray.push(monthlyLog[i].Cycle);
-        monthlyRowingDataArray.push(monthlyLog[i].Row);
-        monthlyGymDataArray.push(monthlyLog[i].Gym);
-        monthlyYogaDataArray.push(monthlyLog[i].Yoga);
-        monthlyOtherDataArray.push(monthlyLog[i].Other);
+      // ADD CONDITION FOR 2022 ONLY??
+      for (let i = 0; i < allEvents.length; i ++) {
+        if (allEvents[i].length > 0) {
+          for (let j = 0; j < 12; j++) {
+            if(new Date(allEvents[i].start).getMonth() === j) {
+              if (allEvents[i].activity === 'Run') {
+                monthlyRunningDataArray[j] += allEvents[i].length;
+              }
+              if (allEvents[i].activity === 'Cycle') {
+                monthlyCyclingDataArray[j] += allEvents[i].length;
+              }
+              if (allEvents[i].activity === 'Row') {
+                monthlyRowingDataArray[j] += allEvents[i].length;
+              }
+              if (allEvents[i].activity === 'Gym') {
+                monthlyGymDataArray[j] += allEvents[i].length;
+              }
+              if (allEvents[i].activity === 'Yoga') {
+                monthlyYogaDataArray[j] += allEvents[i].length;
+              }
+              if (allEvents[i].activity === 'Other') {
+                monthlyOtherDataArray[j] += allEvents[i].length;
+              }
+            }
+          }
+        }
       }
       
       const data = {

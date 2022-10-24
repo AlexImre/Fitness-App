@@ -17,9 +17,9 @@ export const LoginPage = (props) => {
     const [showFailureMessage, setShowFailureMessage] = useState(false);
 
 
-    const setIsLoading = () => {
-        props.setIsLoading(false);
-    }
+    // const setIsLoading = () => {
+    //     props.setIsLoading(false);
+    // }
     
     // HANDLE LOGIN SUCCESS OR FAILURE
     const navigate = useNavigate();
@@ -32,7 +32,7 @@ export const LoginPage = (props) => {
             return;
         }
         setShowFailureMessage(false);
-        setIsLoading();
+        // setIsLoading();
         navigate('/Home');
         // IS THERE A BETTER WAY TO LOAD DATA AFTER NAVIGATION?
         window.location.reload();

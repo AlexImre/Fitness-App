@@ -10,24 +10,9 @@ function App() {
   
   const [newEvent, setNewEvent] = useState({activity: '', start: '', end: '', length: 0});
   const [allEvents, setAllEvents] = useState([]);
-  const [activityLog, setActivityLog] = useState({Run: 0, Cycle: 0, Gym: 0, Row: 0, Yoga: 0, Other: 0});
-  const [monthlyLog, setMonthlyLog] = useState({ 
-      0: { Run: 0, Cycle: 0, Gym: 0, Row: 0, Yoga: 0, Other: 0 },
-      1: { Run: 0, Cycle: 0, Gym: 0, Row: 0, Yoga: 0, Other: 0 },
-      2: { Run: 0, Cycle: 0, Gym: 0, Row: 0, Yoga: 0, Other: 0 },
-      3: { Run: 0, Cycle: 0, Gym: 0, Row: 0, Yoga: 0, Other: 0 },
-      4: { Run: 0, Cycle: 0, Gym: 0, Row: 0, Yoga: 0, Other: 0 },
-      5: { Run: 0, Cycle: 0, Gym: 0, Row: 0, Yoga: 0, Other: 0 },
-      6: { Run: 0, Cycle: 0, Gym: 0, Row: 0, Yoga: 0, Other: 0 },
-      7: { Run: 0, Cycle: 0, Gym: 0, Row: 0, Yoga: 0, Other: 0 },
-      8: { Run: 0, Cycle: 0, Gym: 0, Row: 0, Yoga: 0, Other: 0 },
-      9: { Run: 0, Cycle: 0, Gym: 0, Row: 0, Yoga: 0, Other: 0 },
-      10: { Run: 0, Cycle: 0, Gym: 0, Row: 0, Yoga: 0, Other: 0 },
-      11: { Run: 0, Cycle: 0, Gym: 0, Row: 0, Yoga: 0, Other: 0 }
-  });
-
 
   // check auth before every page load, unless location is /login or /register
+  const location = useLocation();
   const checkAuth = async () => {
     if (location.pathname === '/register' || location.pathname === '/Register' || location.pathname === '/login' || location.pathname === '/Login'){
       return;
@@ -47,7 +32,6 @@ function App() {
 
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
-  const location = useLocation();
   const handleAuth = (res) => {
       if (res.status === 401) {
         console.log('RENAVIGATING TO LOGIN');
@@ -61,15 +45,10 @@ function App() {
 
   useEffect(() => {
     checkAuth();
-  }, []);
-
-  
-  useEffect(() => {
     getAllEvents();
   }, []);
 
-  // Get allEvents
-
+  // Get allEvents on pageload
   const handleAddAllEvents = (res) => {
     console.log('reached handleallevents!');
     const userAllEvents = res.allEvents;
@@ -93,12 +72,8 @@ function App() {
   } catch (err) {
     console.log('You hit all events error!');
     console.log(err);
+    }
   }
-}
-
-const date = new Date("2022-10-11T23:00:00.000Z");
-console.log(date.getFullYear());
-
 
   // IS LOADING CAN BE MOVED TO HOME AND ANALYTICS PAGE?
 
@@ -110,14 +85,10 @@ console.log(date.getFullYear());
         <Route path="/Home" element={
           <Home 
             newEvent={newEvent} setNewEvent={setNewEvent}
-            allEvents={allEvents} setAllEvents={setAllEvents}
-            activityLog={activityLog} setActivityLog={setActivityLog}
-            monthlyLog={monthlyLog} setMonthlyLog={setMonthlyLog} /> } />
+            allEvents={allEvents} setAllEvents={setAllEvents} /> } />
         <Route path="/Analytics" element={
           <Analytics 
             allEvents={allEvents}
-            activityLog={activityLog}
-            monthlyLog={monthlyLog}
             setAllEvents={setAllEvents} />
         } />
       </Routes>

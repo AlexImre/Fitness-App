@@ -26,7 +26,7 @@ export const ActivityTimeChart = (props) => {
     const labels = ['Activity'];
 
     // This is 2022, use to display only data for 2022 
-    const currentYear = new Date(Date.now()).getFullYear();
+    // const currentYear = new Date(Date.now()).getFullYear();
     
     const options = {
         indexAxis: 'y',

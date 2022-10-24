@@ -1,3 +1,9 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing: border-box;
+}
+
 .AppAddEventTitle {
   display: flex;
   justify-content: center;
@@ -74,7 +80,8 @@
 
 .button-41 {
   background-color: initial;
-  background-image: linear-gradient(-180deg, #00D775, #00BD68);
+  /* #00D775, #00BD68 */
+  background-image: linear-gradient(-180deg, #4ecdc4, #41aaa3);
   border-radius: 5px;
   box-shadow: rgba(0, 0, 0, 0.1) 0 2px 4px;
   color: #FFFFFF;
@@ -85,14 +92,14 @@
   user-select: none;
   -webkit-user-select: none;
   width: 75px;
-  margin: 1rem 0.25rem 0.5rem 0.5rem;
+  margin: 1.5rem 0.25rem 0rem 0.5rem;
   height: 25px;
   z-index: 9;
   border: 0;
 }
 
 .button-41:hover {
-  background: #00bd68;
+  background: #41aaa3;
 }
 
 .button-41Close {
@@ -117,7 +124,7 @@
   white-space: nowrap;
   height: 25px;
   width: 75px;
-  margin: 1rem 0.25rem 0.5rem 0.5rem;
+  margin: 1.5rem 0.25rem 0rem 0.5rem;
   z-index: 9;
   border: 0;
 }

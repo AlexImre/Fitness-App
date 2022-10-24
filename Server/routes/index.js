@@ -55,11 +55,21 @@ router.post('/addEvent', async (req, res, next) => {
     console.log(req.user);
     const newEvent = req.body.newEvent;
     const user = await User.findOne({ username: req.user.username });
+
     console.log(user);
-    user.test = req.body.test;
     user.allEvents.push(newEvent);
     await user.save();
-    res.send(user);
+    const index = user.allEvents.length - 1;
+    console.log(index);
+    const newEventSavedByDb = await User.aggregate([
+        {$match: { username: req.user.username }},
+        {$project: {
+            lastItem: {$arrayElemAt: ["$allEvents", -1]}
+        }
+        }
+    ])
+    console.log(newEventSavedByDb);
+    res.send(newEventSavedByDb);
 })
 
  /**
@@ -84,5 +94,24 @@ router.get('/logout', (req, res, next) => {
     // NOT SURE THIS IS BEST PRACTICE?
     req.session.destroy();
 });
+
+ /**
+ * -------------- GET ROUTES ----------------
+ */
+
+ router.delete('/delete', async (req, res, next) => {
+    const eventId = req.body.eventId;
+    console.log(req.body);
+    const user = await User.findOne({ username: req.user.username });
+    // console.log(user);
+    console.log(eventId);
+
+    await User.findOneAndUpdate({ _id: user._id },
+    { $pull: { allEvents: { _id: eventId } } });
+
+    console.log('You deleted something!');
+    res.status(204).send(user);
+
+ })
 
 module.exports = router;

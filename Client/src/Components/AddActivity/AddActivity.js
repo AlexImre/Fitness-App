@@ -6,17 +6,22 @@ import './AddActivity.css';
 export const AddActivity = (props) => {
 
   // PROPS
+  const allEvents = props.allEvents;
+  const setAllEvents = props.setAllEvents;
   const newEvent = props.newEvent;
   const setNewEvent = (event) => {
     props.setNewEvent(event);
   }
   const handleAddEvent = (e) => {
     addEvent(e);
-    props.handleAddEvent();
     props.toggleActivityMenu();
   }
   const toggleActivityMenu = () => {
     props.toggleActivityMenu();
+  }
+
+  const updateStateAfterAddingEvent = (res) => {
+    setAllEvents([...allEvents, res[0].lastItem])
   }
 
   const addEvent = async (e) => {
@@ -26,7 +31,6 @@ export const AddActivity = (props) => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json'},
         body: JSON.stringify({
-            test: 'test',
             newEvent: {
               activity: newEvent.activity,
               start: newEvent.start,
@@ -35,10 +39,10 @@ export const AddActivity = (props) => {
             }
         })
     };
-    await fetch('/addEvent', requestOptions);
+    await fetch('/addEvent', requestOptions)
+      .then(res => res.json(res))
+      .then(res => updateStateAfterAddingEvent(res));
 }
-
-
 
   return (
       <div className='AddActivityContainer'>
@@ -61,7 +65,7 @@ export const AddActivity = (props) => {
           <div className='AddActivityDateWrapper'>
               <span className='AddActivityLabel'>Date</span>
               <div className='AddActivityDatePicker'>
-                <DatePicker placeholderText="Date of activity" selected={newEvent.start} popperPlacement='bottom'
+                <DatePicker selected={newEvent.start} popperPlacement='bottom'
                   onChange={(start) => setNewEvent({...newEvent, start: start, end: start + 1})}
                 />
             </div>

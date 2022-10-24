@@ -4,7 +4,6 @@ import { ActivityTimeChart } from '../Components/Charts/ActivityTimeChart';
 import { TotalTimeChart } from '../Components/Charts/MonthlyTimeChart';
 import { Footer } from '../Components/Footer/Footer';
 import './Analytics.css';
-import { set } from 'date-fns';
 
 export const Analytics = (props) => {
     // GET STATE DATA

@@ -1,11 +1,10 @@
 import './Home.css';
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { AddActivity } from '../Components/AddActivity/AddActivity';
 import { Header } from '../Components/Header/Header';
 import { CalendarComponent } from '../Components/Calendar/CalendarComponent';
 import { Footer } from '../Components/Footer/Footer';
-import { useLocation, useNavigate } from 'react-router';
 
 export function Home(props) {
     // STATE VARIABLES
@@ -13,10 +12,6 @@ export function Home(props) {
     const setNewEvent = props.setNewEvent;
     const allEvents = props.allEvents;
     const setAllEvents = props.setAllEvents;
-    const activityLog = props.activityLog;
-    const setActivityLog = props.setActivityLog;
-    const monthlyLog = props.monthlyLog;
-    const setMonthlyLog = props.setMonthlyLog;
 
     // FUNCTIONS
     const [showAddActivityMenu, setShowAddActivityMenu] = useState(false);
@@ -34,34 +29,31 @@ export function Home(props) {
             window.alert('Please enter valid length of activity.');
             return;
         }
-
         if(!newEvent.activity) {
             window.alert('Please select valid activity.');
             return;
         }
-
-        setAllEvents([...allEvents, newEvent]);
-        const activityMonth = newEvent.start.getMonth();
-        const activity = newEvent.activity;
-        const length = Number(newEvent.length);
-        const newLengthEntry = activityLog[activity] += length;
-        const prevMonthActivityLength = monthlyLog[activityMonth][activity];
-        setActivityLog({...activityLog, [activity]: newLengthEntry });
-        setMonthlyLog({...monthlyLog, [activityMonth]: {...monthlyLog[activityMonth], [activity]: prevMonthActivityLength + length }})
     }
 
     // DELETE ACTIVITY
-    const handleEventSelection = (e) => {
-        const request = window.confirm("Would you like to remove this activity?")
+    const updateStateAfterDeletingEvent = (e) => {
+        const updatedAllEventsArray = allEvents.filter((element) => element._id !== e._id);
+        setAllEvents(updatedAllEventsArray);
+    }
+
+    const handleEventSelection = async (e) => {
+        console.log(e);
+        const request = window.confirm("Would you like to remove this activity?");
+        const eventId = e._id;
+        console.log(eventId);
         if (request) {
-            const idx = allEvents.indexOf(e);
-            // I THINK SPLICING LIKE THIS MAY BE INCORRECT (but works??). DO I NEED TO USE setAllEvents to remove ID from state???
-            allEvents.splice(idx, 1);
-            setActivityLog({ ...activityLog, [e.activity]: activityLog[e.activity] - e.length });
-            const activityMonth = e.start.getMonth();
-            const activity = e.activity;
-            const prevMonthActivityLength = monthlyLog[activityMonth][activity];
-            setMonthlyLog({...monthlyLog, [activityMonth]: {...monthlyLog[activityMonth], [activity]: prevMonthActivityLength - e.length }})
+            const requestOptions = {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ eventId: eventId })
+            };
+            await fetch('/delete', requestOptions)
+                .then(updateStateAfterDeletingEvent(e));
         }
     }
 
@@ -71,7 +63,7 @@ export function Home(props) {
             className='HomeContainer' 
             id='blur'
             style={showAddActivityMenu ? {
-                    filter: 'blur(5px)', 
+                    filter: 'blur(5px)',
                     PointerEvents: 'none', 
                     userSelect: 'none'} : {filter: 'none'}}>
             <div className='HomeWrapper'>
@@ -91,7 +83,7 @@ export function Home(props) {
 
         {/* ADDACTIVITY SECTION */}
         <div className='AppAddActivityContainer'>
-            {showAddActivityMenu ? <AddActivity newEvent={newEvent} setNewEvent={setNewEvent} handleAddEvent={handleAddEvent} toggleActivityMenu={toggleActivityMenu} /> : '' }
+            {showAddActivityMenu ? <AddActivity newEvent={newEvent} allEvents={allEvents} setAllEvents={setAllEvents} setNewEvent={setNewEvent} handleAddEvent={handleAddEvent} toggleActivityMenu={toggleActivityMenu} /> : '' }
         </div>
         </>
     );
